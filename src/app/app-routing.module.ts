@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { ListProductsComponent } from './components/list-products/list-products.component';
 import { LoginComponent } from './components/login/login.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'home'},
-  {path: 'home', component: HomeComponent},
+  {path: '', pathMatch: 'full', redirectTo: 'site/home'},
+  {path: 'site', component: NavBarComponent, children: [
+    {path: 'home', component: HomeComponent},
+    {path: 'products', component: ListProductsComponent}
+  ]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent}
 ];

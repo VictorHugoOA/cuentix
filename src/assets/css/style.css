@@ -269,7 +269,7 @@
 	border-bottom:0px;
 }
 .header .nav li .dropdown li:hover a{
-	color:#fff;
+	color:#333;
 	background:#F7941D;
 }
 .header .nav li .dropdown li a:hover{
@@ -318,7 +318,7 @@
 	background:transparent;
 }
 .header .nav li .dropdown li .dropdown.sub-dropdown li a:hover{
-	color:#fff;
+	color:#333;
 	background:#F7941D;
 }
 .header .nav li .dropdown.sub-dropdown li:last-child a{
@@ -728,10 +728,11 @@
 	color: #333;
 }
 .header.shop .all-category {
-	color: rgb(25,11,66);
+	color: #333;
 	background: transparent;
 	position: relative;
-	background: rgb(188, 254, 247);
+	background: #bae0f5;
+	border-radius: 0px 0px 5px 5px;
 }
 .header.shop .all-category h3{
 	padding: 20px 25px;
@@ -750,7 +751,7 @@
 	position: absolute;
 	left: 0;
 	top: 64px;
-	background: rgb(25,11,66);
+	background: #bae0f5;
 	z-index: 1;
 	width: 100%;
 	-webkit-box-shadow: 0px 5px 15px #0000000a;
@@ -759,16 +760,17 @@
 }
 .header.shop .main-category li{
 	display:block;
-	border-bottom:1px solid rgb(62,19,156);
+	border-bottom:1px solid #bc98f3;
 	position:relative;
 }
 .header.shop .main-category li:last-child{
-	border:none;
+	border:0px;
+	border-radius: 0px 0px 5px 5px;
 }
 .header.shop .main-category li a {
 	font-size: 14px;
 	font-weight: 600;
-	color: rgb(188, 254, 247);
+	color: #333;
 	padding: 13px 25px 13px 25px;
 	display: block;
 	text-transform: uppercase;
@@ -928,7 +930,7 @@
 }
 .header.shop .nav li:hover a{
 	color:rgb(25,11,66);
-	background:rgb(188, 254, 247);
+	background:#bae0f5;
 }
 .header.shop.v2 .nav li:hover a{
 	color:rgb(188, 254, 247);
@@ -936,7 +938,7 @@
 }
 .header.shop .nav li.active a{
 	color:rgb(25,11,66);
-	background:rgb(188, 254, 247);
+	background:#bae0f5;
 }
 .header.shop.v2 .nav li.active a{
 	color:#333 !important;
@@ -979,7 +981,7 @@
 	font-size: 14px;
 }
 .header.shop .nav li .dropdown li a:hover{
-	color:#fff;
+	color:rgb(25,11,66);
 }
 .header.shop.v2 .nav li .dropdown li a:hover{
 	color:#fff !important;
@@ -1129,22 +1131,22 @@
 	visibility:visible;
 }
 .header.sticky .header-inner .nav li a {
-	color: #333;
+	color: #bae0f5;
 }
 .header.sticky.v3 .header-inner .nav li a {
-	color: #fff;
+	color: #bae0f5;
 }
 .header.sticky .header-inner .nav li:hover a{
-	color:#fff;
+	color:rgb(25,11,66);
 }
 .header.sticky.v2 .header-inner .nav li:hover a{
-	color:rgb(188, 254, 247);
+	color:rgb(25,11,66);
 }
 .header.sticky .header-inner .nav li .dropdown li a{
-	color:#333;
+	color:#bae0f5;
 }
 .header.sticky.v2 .header-inner .nav li .dropdown li a{
-	color:#333;
+	color:#bae0f5;
 }
 .header.sticky .header-inner .nav li .dropdown li a:hover{
 	color:rgb(25,11,66);
@@ -1156,7 +1158,7 @@
 	position:fixed;
 	top:0;
 	left:0;
-	background:#fff;
+	background:#333;
 	animation: fadeInDown 1s both 0.2s;
 	-webkit-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -1185,7 +1187,7 @@
 }
 .hero-slider .single-slider {
 	height: auto;
-	background-image: url('../images/cuenta1.PNG');
+	background-image: url('https://www.todogadget.net/files/05-2021/ad41298/vendo-canal-de-free-fire-26-5k-suscriptores-1714977906_large.png');
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -1202,36 +1204,37 @@
 	line-height: 50px;
 	font-size: 47px;
 	font-weight: 700;
-	color: rgb(62,19,156);
+	color: #bc98f3;
 	margin-bottom: 20px;
 }
 .hero-slider .hero-text h1 span {
 	font-size: 20px;
 	display: block;
 	margin-bottom: 12px;
-	color: rgb(188, 254, 247);
+	color: #333;
 	font-weight: 700;
 	line-height: initial;
 }
 .hero-slider .hero-text p {
-	color: rgb(188, 254, 247);
+	color: #333;
 	margin-bottom: 35px;
 }
 .hero-slider .hero-text .button{
 	margin:0;
 }
 .hero-slider .hero-text .btn {
-	color: rgb(188, 254, 247);
-	background: rgb(62,19,156);
+	color: #fff;
+	background: #333;
 	padding: 13px 30px;
 	line-height: initial;
 	border: none;
 	height: auto;
 	z-index: 0;
+	border-radius: 5px;
 }
 .hero-slider .hero-text .btn:hover{
-	background:rgb(188, 254, 247);
-	color:rgb(25,11,66);
+	background:#bc98f3;
+	color:#d1eaf9;
 }
 /* Start Hero Area 2 CSS */
 .hero-area2{
@@ -1506,13 +1509,25 @@
 .small-banner .single-banner {
 	overflow:hidden;
 	position:relative;
+	border-radius: 10px;
+	width: 600px;
+	height: 350px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	overflow: hidden;
+	background: #000;
 }
 .small-banner .single-banner img{
-	height:100%;
-	width:100%;
+	min-width: 100%;
+	min-height: 100%;
+	opacity: 1;
 	-webkit-transition:all 0.4s ease;
 	-moz-transition:all 0.4s ease;
 	transition:all 0.4s ease;
+	filter: blur(5px);
+}
+.small-banner .single-banner img::before{
+	background-color: rgba(0, 0, 0, 0.8);
 }
 .small-banner .single-banner .content {
 	position: absolute;
@@ -1525,20 +1540,20 @@
 	font-size: 22px;
 	font-weight: 700;
 	text-transform: capitalize;
-	color: rgb(62,19,156);
+	color: #bae0f5;
 }
 .small-banner .single-banner h3 span{
 	color:rgb(62,19,156);
 }
 .small-banner .single-banner p {
 	font-size: 14px;
-	color: rgb(188, 254, 247);
+	color: #fff;
 	font-weight: 500;
 	margin-bottom: 5px;
 	text-transform: capitalize;
 }
 .small-banner .single-banner a {
-	color: #333;
+	color: #fff;
 	margin-top: 22px;
 	display: block;
 	font-size: 12px;
@@ -1718,6 +1733,8 @@
 /* Sinlge Product */
 .single-product{
 	margin-top:50px;
+	background: #95b8f6;
+	border-radius: 10px;
 }
 .single-product .product-img {
   position: relative;
@@ -1733,6 +1750,7 @@
   object-position: center;
   height: 600px;
   width: 600px;
+  border-radius: 5px 5px 0px 0px;
 }
 .single-product .product-img a img.hover-img {
   position: absolute;
@@ -1950,6 +1968,8 @@
 }
 .single-product .product-content{
 	margin-top:20px;
+	padding-left: 10%;
+	padding-bottom: 20px;
 }
 .single-product .product-img:hover.default-overlay::before {
   background-color: rgba(38, 38, 38, 0.2);
@@ -1980,7 +2000,7 @@
 	font-size: 14px;
 	font-weight: 500;
 	margin: 0;
-	color: rgb(188, 254, 247);
+	color: #333;
 }
 .single-product .product-content h3 a:hover{
 	color:#F7941D;
@@ -1991,6 +2011,7 @@
 .single-product .product-content .product-price span {
 	font-size: 15px;
 	font-weight: 500;
+	color: #bae0f5;
 }
 .single-product .product-content .product-price span.old {
   text-decoration: line-through;
@@ -2782,9 +2803,8 @@
 	margin-bottom: 0;
 	text-transform: capitalize;
 	position: relative;
-	color: rgb(188, 254, 247);
+	color: #333;
 	font-weight: 700;
-	margin-bottom: 10px;
 	padding-bottom: 10px;
 }
 .shop-home-list .shop-section-title h1::before {
@@ -2792,7 +2812,7 @@
 	content: "";
 	height: 2px;
 	width: 50px;
-	background: #F7941D;
+	background: #d3bcf6;
 	left: 0;
 	bottom: -1px;
 }
@@ -2801,7 +2821,9 @@
 	position: relative;
 	margin-top: 30px;
 	border: 1px solid #eee;
+	border-radius: 5px;
 	padding: 10px;
+	background-color: #95b8f6;
 }
 .shop-home-list .single-list .list-image{
 	position:relative;
@@ -2861,16 +2883,17 @@
 	height:100%;
 }
 .shop-home-list .single-list .content {
-	padding-top: 45px;
-	padding-right: 12px;
+	padding-top: 20px;
+	padding-right: 25px;
 }
 .shop-home-list .single-list .content .title {
 	line-height: 18px;
-	color:rgb(188, 254, 247);
+	color:#bae0f5;
 }
 .shop-home-list .single-list .content .title a{
 	font-size: 14px;
 	font-weight: 600;
+	color: #333;
 }
 .shop-home-list .single-list .content .titlea {
 	color: #333;
@@ -4079,7 +4102,7 @@
 	margin-bottom: 0;
 	text-transform: capitalize;
 	position: relative;
-	color: rgb(188, 254, 247);
+	color: #333;
 	font-weight: 700;
 	padding-bottom: 15px;
 }
@@ -4088,7 +4111,7 @@
 	margin-bottom: 0;
 	text-transform: capitalize;
 	position: relative;
-	color: rgb(188, 254, 247);
+	color: #333;
 	font-weight: 700;
 	padding-bottom: 15px;
 }

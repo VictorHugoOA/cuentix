@@ -1,17 +1,17 @@
 .login-background {
-    background-color: rgb(25,11,66);
+    background-color: #d3bcf6;
     background-size: contain;
     font-family: Montserrat;
     width: 100%;
     height: 100%;
+    margin-top: 0px;
 }
 
 
 .logo {
     width: 213px;
     height: 36px;
-    background-color: rgb(25,11,66);
-    margin: 30px auto;
+    background-color: #d3bcf6;
 }
 
 .login-block {

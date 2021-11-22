@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const libro = require("../Models/Libro");
-const pedido = require("../Models/Pedido");
-const editorial = require("../Models/Editorial");
+const cuenta = require("../Models/Cuenta");
+const pedido = require("../Models/Compra");
 const Usuario = require("../Models/Usuario");
 var mongoose = require('mongoose');
 const multer = require('multer');
@@ -12,34 +11,29 @@ const upload = multer({ dest: process.cwd() + '/uploads/images' });
 // validation
 const Joi = require('@hapi/joi');
 
-//Añadir Libro
+//Añadir Cuenta
 router.post("/Insertar", async (req, res) => {
 	try {
 
-		const book = new libro({
+		const account = new cuenta({
 			Titulo: req.body.titulo,
-			Autor: req.body.autor,
-			Id_editorial: mongoose.Types.ObjectId(req.body.editorial),
-			NombreEditorial: req.body.nombreEditorial,
+			Id_vendedor: mongoose.Types.ObjectId(req.body.vendedor),
+			Tipo: req.body.tipo,
+			Plataforma: req.body.plataforma,
+			Descripcion: req.body.descripcion,
 			Precio: req.body.precio,
-			Cantidad_dis: req.body.cantidad,
-			Fecha_adquision: req.body.fecha,
-			Sinopsis: req.body.sinopsis,
-			Genero: req.body.genero,
+			Estado: req.body.estado,
 			Imagen: req.body.imagen,
-			Formato: req.body.formato,
-			Vendidos:0
-
 		});
 
-		const savedBook = book.save();
+		const savedAccount = account.save();
 		res.json({
 			error: null,
 			response: "Añadido",
 			data: savedBook
 
 		})
-		console.log(savedBook)
+		console.log(savedAccount)
 
 
 	} catch (error) {
@@ -49,65 +43,62 @@ router.post("/Insertar", async (req, res) => {
 
 });
 
-//Ver libro
+//Ver cuenta
 router.get("/Ver/:id", async (req, res) => {
 	const id = req.params.id;
-	libro.findById({ _id: id }).then((doc) => {
+	cuenta.findById({ _id: id }).then((doc) => {
 		res.json({ data: doc, error: null });
 	});
-
 });
 
-//Ver libros por generos
-router.get("/VerGenero/:genero", async (req, res) => {
-	const genero = req.params.genero;
-	libro.find({ Genero: genero }).then((doc) => {
+//Ver cuentas por tipo
+router.get("/VerTipo/:tipo", async (req, res) => {
+	const tipo = req.params.tipo;
+	cuenta.find({ Tipo: tipo }).then((doc) => {
 		res.json({ data: doc, error: null });
 	})
-
 });
 
-//Ver todos los libros
+//Ver cuentas por plataforma
+router.get("/VerPlataforma/:plataforma", async (req, res) => {
+	const plataforma = req.params.plataforma;
+	cuenta.find({ Plataforma: plataforma }).then((doc) => {
+		res.json({ data: doc, error: null });
+	})
+});
+
+//Ver todas las cuentas
 router.get("/VerTodos", async (req, res) => {
 
-	libro.find({}).then((doc) => {
+	cuenta.find({}).then((doc) => {
 		res.json({ lib: doc, error: null });
 	})
 
 });
 
-//Ver filtrar libros por precio
+//Ver filtrar cuentas por precio
 router.get("/FiltrarPrecio", async (req, res) => {
 
 	const MinVal = req.query.min;
 	const MaxVal = req.query.max;
-	const Search = req.query.max;
 
-	libro.find({ $and: [{ Precio: { $gte: MinVal } }, { Precio: { $lte: MaxVal } }] }).then((doc) => {
+	cuenta.find({ $and: [{ Precio: { $gte: MinVal } }, { Precio: { $lte: MaxVal } }] }).then((doc) => {
 		res.json({ lib: doc, error: null });
 	})
 
 });
 
+/*
 //Ver los 10 libros más vendidos
 router.get("/VerMasVendidos", async (req, res) => {
-	libro.find({}).sort({Vendidos: -1})
+	cuenta.find({}).sort({Vendidos: -1})
 	.then(doc => {
 		
 		doc.splice(10);
 		res.json({lib: doc, error: null});
 	})
 });
-
-//Ver los 6 libros más novedosos
-router.get("/Novedades", async (req, res) => {
-	libro.find({}).sort({Fecha_adquision: -1})
-	.then(doc => {
-	
-		doc.splice(6);
-		res.json({lib: doc, error: null});
-	});
-})
+*/
 
 //Buscar libros
 router.get("/Buscar", async (req, res) => {
@@ -123,13 +114,12 @@ router.get("/Buscar", async (req, res) => {
 				const MinVal = req.query.min;
 				const MaxVal = req.query.max;
 
-				libro.find({
+				cuenta.find({
 					$and:
 						[
 							{
 								$or: [
-									{ Titulo: { $regex: `${Search}`, $options: 'i' } },
-									{ Autor: { $regex: `${Search}`, $options: 'i' } }]
+									{ Titulo: { $regex: `${Search}`, $options: 'i' } }]
 							},
 							{ Precio: { $gte: MinVal } },
 							{ Precio: { $lte: MaxVal } }]
@@ -139,7 +129,7 @@ router.get("/Buscar", async (req, res) => {
 					});
 			}
 			else {
-				libro.find({ $or: [{ Titulo: { $regex: `${Search}`, $options: 'i' } }, { Autor: { $regex: `${Search}`, $options: 'i' } }] })
+				cuenta.find({ $or: [{ Titulo: { $regex: `${Search}`, $options: 'i' } }, { Autor: { $regex: `${Search}`, $options: 'i' } }] })
 					.then((doc) => {
 						res.json({ lib: doc, error: null });
 					});
@@ -152,12 +142,12 @@ router.get("/Buscar", async (req, res) => {
 			) {
 				const MinVal = req.query.min;
 				const MaxVal = req.query.max;
-				libro.find({ $and: [{ Precio: { $gte: MinVal } }, { Precio: { $lte: MaxVal } }] }).then((doc) => {
+				cuenta.find({ $and: [{ Precio: { $gte: MinVal } }, { Precio: { $lte: MaxVal } }] }).then((doc) => {
 					res.json({ lib: doc, error: null });
 				})
 			}
 			else {
-				libro.find({ $or: [{ Titulo: { $regex: `${Search}`, $options: 'i' } }, { Autor: { $regex: `${Search}`, $options: 'i' } }] })
+				cuenta.find({ $or: [{ Titulo: { $regex: `${Search}`, $options: 'i' } }, { Autor: { $regex: `${Search}`, $options: 'i' } }] })
 					.then((doc) => {
 						res.json({ lib: doc, error: null });
 					});
@@ -165,7 +155,7 @@ router.get("/Buscar", async (req, res) => {
 		}
 	}
 	else {
-		libro.find({}).then((doc) => {
+		cuenta.find({}).then((doc) => {
 			res.json({ lib: doc, error: null });
 		})
 	}
@@ -176,33 +166,29 @@ router.put("/Modificar/:id", (req, res) => {
 
 	const id = req.params.id;
 	const titu = req.body.titulo;
-	const au = req.body.autor;
-	const sinop = req.body.sinopsis;
-	const gen = req.body.genero;
-	const edit = mongoose.Types.ObjectId(req.body.editorial);
-	const nom_edit = req.body.nombreEditorial;
 	const pre = req.body.precio;
-	const cant = req.body.cantidad;
-	const vend = req.body.vendidos;
 	const imag = req.body.imagen;
-	const fecha = req.body.fecha;
-	const format = req.body.formato;
+	const estado = req.body.estado;
+	const desc = req.body.desc;
+	const tipo = req.body.tipo;
+	const plataforma = req.body.plataforma;
 
-	libro.findByIdAndUpdate(
+	cuenta.findByIdAndUpdate(
 		{ _id: id },
 		{
 			$set: {
-				Titulo: titu, Autor: au, Sinopsis: sinop, Genero: gen,
-				Id_editorial: edit,
-				NombreEditorial: nom_edit,
-				Precio: pre, Cantidad_dis: cant,
-				Imagen: imag,
-				Vendidos: vend, Fecha_adquision: fecha, Formato: format
+				Titulo: titu,
+				Precio: pre,
+				Tipo: tipo,
+				Plataforma: plataforma,
+				Estado: estado,
+				Descripcion: desc,
+				Imagen, imag
 			}
 		}
 	)
 		.then((doc) => {
-			res.json({ response: "Libro Modificado" });
+			res.json({ response: "Cuenta Modificada" });
 		})
 		.catch((err) => {
 			console.log("error al cambiar", err.message);
@@ -213,9 +199,9 @@ router.put("/Modificar/:id", (req, res) => {
 //Eliminar libro
 router.get("/Eliminar/:id", (req, res) => {
 	const id = req.params.id;
-	libro.findByIdAndDelete({ _id: id })
+	cuenta.findByIdAndDelete({ _id: id })
 		.then((doc) => {
-			res.json({ response: "Libro eliminado" });
+			res.json({ response: "Cuenta eliminada" });
 		})
 		.catch((err) => {
 			console.log("error al cambiar", err.message);

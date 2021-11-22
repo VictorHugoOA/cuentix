@@ -10,13 +10,12 @@ const bcrypt = require("bcrypt");
 // validation
 const Joi = require("@hapi/joi");
 const schemaRegister = Joi.object({
-	Nombre: Joi.string().min(2).max(255).required(),
-	Apellido: Joi.string().min(2).max(255).required(),
+	usuario: Joi.string().min(6).max(255).required(),
 	email: Joi.string().max(255).required().email(),
 	contra: Joi.string().min(2).max(1024).required(),
 });
 const schemaLogin = Joi.object({
-	email: Joi.string().min(6).max(255).required().email(),
+	usuario: Joi.string().min(6).max(255).required(),
 	contra: Joi.string().min(2).max(1024).required(),
 });
 
@@ -29,17 +28,19 @@ router.post("/Registro", async (req, res) => {
 			return res.status(400).json({ error: error.details[0].message });
 		}
 		const isEmailExist = await Usuario.findOne({ Email: req.body.email });
-
+		const isUserExist = await Usuario.findOne({Usuario: req.body.usuario});
 		if (isEmailExist) {
 			return res.status(400).json({ error: "Email ya registrado" });
+		}
+		if (isUserExist){
+			return res.status(400).json({error: "Nombre de usuario ya registrado"});
 		}
 		// hash contraseña
 		const salt = await bcrypt.genSalt(10);
 		const password = await bcrypt.hash(req.body.contra, salt);
 
 		const user = new usuario({
-			Nombre: req.body.Nombre,
-			Apellido: req.body.Apellido,
+			Usuario: req.body.usuario,
 			Contrasena: password,
 			Email: req.body.email,
 		});
@@ -60,16 +61,19 @@ router.post("/Insertar", async (req, res) => {
 	try {
 		console.log("hola");
 		const isEmailExist = await Usuario.findOne({ Email: req.body.email });
+		const isUserExist = await Usuario.findOne({Usuario: req.body.usuario});
 
 		if (isEmailExist) {
 			return res.status(400).json({ error: "Email ya registrado" });
+		}
+		if (isUserExist){
+			return res.status(400).json({error: "Nombre de usuario ya registrado"});
 		}
 		const salt = await bcrypt.genSalt(10);
 		const password = await bcrypt.hash(req.body.contra, salt);
 
 		const user = new usuario({
-			Nombre: req.body.Nombre,
-			Apellido: req.body.Apellido,
+			Usuario: req.body.usuario,
 			Contrasena: password,
 			Email: req.body.email,
 			Admi: req.body.admi,
@@ -93,7 +97,7 @@ router.post("/login", async (req, res) => {
 	const { error } = schemaLogin.validate(req.body);
 	if (error) return res.status(400).json({ error: error.details[0].message });
 
-	const user = await Usuario.findOne({ Email: req.body.email });
+	const user = await Usuario.findOne({ Usuario: req.body.usuario });
 	if (!user) return res.status(400).json({ error: "Usuario no encontrado" });
 
 	const validPassword = await bcrypt.compare(req.body.contra, user.Contrasena);
@@ -135,13 +139,12 @@ router.get("/Ver/:id", async (req, res) => {
 		res.json({
 			error: null,
 			Id: user._id,
-			Nombre: user.Nombre,
-			Apellido: user.Apellido,
+			Usuario: user.Usuario,
 			Contrasena: user.Contrasena,
 			Email: user.Email,
-			Deseos: user.Deseos,
-			Carrito: user.Carrito,
-			Direccion: user.Direccion,
+			Compras: user.Lista_Compras,
+			Descripcion: user.Descripcion,
+			Admin: user.Admi
 		});
 	} catch (e) {
 		return status(400).json({
@@ -153,21 +156,21 @@ router.get("/Ver/:id", async (req, res) => {
 //Modificar usuario
 router.put("/Modificar/:id", (req, res) => {
 	const id = req.params.id;
-	const Nom = req.body.Nombre;
-	const ape = req.body.Apellido;
+	const user = req.body.usuario;
 	const Contra = req.body.contra;
 	const Ema = req.body.email;
 	const ad = req.body.admi;
+	const desc = req.body.desc;
 
 	Usuario.findByIdAndUpdate(
 		{ _id: id },
 		{
 			$set: {
-				Nombre: Nom,
-				Apellido: ape,
+				Usuario: user,
 				Contrasena: Contra,
 				Email: Ema,
 				Admi: ad,
+				Descripcion: desc
 			},
 		}
 	)
@@ -191,6 +194,7 @@ router.get("/Eliminar/:id", (req, res) => {
 		});
 });
 
+/*
 //Añadir dirección
 router.put("/InsertarDireccion/:id", (req, res) => {
 	const id = req.params.id;
@@ -274,18 +278,17 @@ router.get("/EliminarDireccion/:id_us/:id_dir", (req, res) => {
 			console.log("error al eliminar", err.message);
 		});
 });
-
+*/
 //Añadir producto a carrito
 router.put("/InsertarCarrito/:id", async (req, res) => {
 	const id = req.params.id;
+	const acc = req.body.idAcc;
+	const est = "Pendiente";
+	const fecha = new Date();
 	const libro = req.body.idLib;
 	const cantidad = req.body.cant;
 	const formato = req.body.format;
 	const submonto = req.body.submonto;
-	const isLibroExist = await Usuario.findOne({
-		_id: id,
-		"Carrito.Libro": libro,
-	});
 
 	// console.log(isLibroExist);
 	// const findLibro = isLibroExist
@@ -297,11 +300,11 @@ router.put("/InsertarCarrito/:id", async (req, res) => {
 		{ _id: id },
 		{
 			$push: {
-				Carrito: {
-					Cantidad: cantidad,
-					Libro: libro,
-					Formato: formato,
-					Submonto: submonto
+				Lista_Compras: {
+					Id_cuenta: acc,
+					Id_usuario: id,
+					Estado: est,
+					Fecha: fecha
 				},
 			},
 		}
@@ -323,20 +326,21 @@ router.put("/InsertarCarrito/:id", async (req, res) => {
 router.put("/ModificarCarrito/:id_us/:id_car", (req, res) => {
 	const id = req.params.id_us;
 	const id_car = mongoose.Types.ObjectId(req.params.id_car);
+	const estado = req.body.estado;
+	const fecha = req.body.fecha;
+	
 	const cantidad = req.body.cant;
 	const formato = req.body.format;
 	const submonto = req.body.monto;
 	const libro = req.body.idLib;
 
 	Usuario.updateOne(
-		{ _id: id, "Carrito._id": id_car },
+		{ _id: id, "Lista_Compras._id": id_car },
 		{
 			$set: {
-				"Carrito.$": {
-					Cantidad: cantidad,
-					Libro: libro,
-					Formato: formato,
-					Submonto: submonto
+				"Lista_Compras.$": {
+					Estado: estado,
+					Fecha: fecha
 				},
 			},
 		}

@@ -75,7 +75,7 @@ router.get("/GenerarPaginaTicket", async (req, res) => {
 	});
 });
 
-//Añadir pedido
+//Añadir cuenta de compra.
 router.put("/Insertar/:id_us", async (req, res) => {
 	const idus = req.params.id_us;
 	try {
@@ -105,7 +105,7 @@ router.put("/Insertar/:id_us", async (req, res) => {
 	}
 });
 
-//Ver pedido de unusuario
+//Ver compra de usuario
 router.get("/VerPed/:id_us/id_ped", async (req, res) => {
 	const idus = req.params.id_us;
 	const idbuy = req.params.id_buy;

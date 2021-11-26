@@ -13,6 +13,7 @@ const schemaRegister = Joi.object({
 	usuario: Joi.string().min(6).max(255).required(),
 	email: Joi.string().max(255).required().email(),
 	contra: Joi.string().min(2).max(1024).required(),
+	tipo: Joi.string().min(2).max(255).required()
 });
 const schemaLogin = Joi.object({
 	usuario: Joi.string().min(6).max(255).required(),
@@ -29,11 +30,11 @@ router.post("/Registro", async (req, res) => {
 		}
 		const isEmailExist = await Usuario.findOne({ Email: req.body.email });
 		const isUserExist = await Usuario.findOne({Usuario: req.body.usuario});
-		if (isEmailExist) {
-			return res.status(400).json({ error: "Email ya registrado" });
-		}
 		if (isUserExist){
 			return res.status(400).json({error: "Nombre de usuario ya registrado"});
+		}
+		if (isEmailExist) {
+			return res.status(400).json({ error: "Email ya registrado" });
 		}
 		// hash contraseña
 		const salt = await bcrypt.genSalt(10);
@@ -43,6 +44,7 @@ router.post("/Registro", async (req, res) => {
 			Usuario: req.body.usuario,
 			Contrasena: password,
 			Email: req.body.email,
+			Tipo: req.body.tipo
 		});
 
 		const savedUser = user.save();
@@ -103,10 +105,8 @@ router.post("/login", async (req, res) => {
 	const validPassword = await bcrypt.compare(req.body.contra, user.Contrasena);
 	if (!validPassword)
 		return res.status(400).json({ error: "contraseña no válida" });
-
 	try {
 		// create token
-
 		const token = jwt.sign(
 			{
 				name: user.Nombre,
@@ -278,7 +278,7 @@ router.get("/EliminarDireccion/:id_us/:id_dir", (req, res) => {
 			console.log("error al eliminar", err.message);
 		});
 });
-*/
+
 //Añadir producto a carrito
 router.put("/InsertarCarrito/:id", async (req, res) => {
 	const id = req.params.id;
@@ -374,6 +374,7 @@ router.get("/EliminarCarrito/:id_us/:id_car", (req, res) => {
 		});
 });
 
+
 //Añadir producto a wish list
 router.put("/InsertarDeseo/:id", async (req, res) => {
 	const id = req.params.id;
@@ -426,9 +427,10 @@ router.get("/EliminarDeseo/:id_us/:id_des", (req, res) => {
 			console.log("error al eliminar", err.message);
 		});
 });
-
+*/
 //Ver todos los usuarios
 router.get("/MostrarTodos", (req, res) => {
+	console.log(req.body);
 	Usuario.find({}).then((doc) => {
 		res.json({ users: doc, error: null });
 	});

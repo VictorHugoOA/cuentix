@@ -39,14 +39,12 @@ conexion.once('open',()=>{
 
 
 const UserRoutes = require('./Routes/UsuarioCrud.js');
-const BookRoutes = require('./Routes/LibroCrud.js');
-const EditRoutes = require('./Routes/ProveedorCrud.js');
-const DeliRoutes = require('./Routes/PedidoCrud.js');
+const AccountRoutes = require('./Routes/CuentaCrud.js');
+const BuyRoutes = require('./Routes/CompraCrud.js');
 
 app.use('/Usuario',UserRoutes);
-app.use('/Libro', BookRoutes);
-app.use('/Editorial',EditRoutes);
-app.use('/Pedido', DeliRoutes);
+app.use('/Cuenta', AccountRoutes);
+app.use('/Compras', BuyRoutes);
 app.use('/logo', express.static('template'));
 
 app.listen(port, function() {

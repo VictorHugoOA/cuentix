@@ -91,7 +91,7 @@ router.get("/VerTodos", async (req, res) => {
 		}
 	}
 
-	cuenta.find(makeSearch).skip((req.query.page-1)*25).limit(25).then((doc) => {
+	cuenta.find(makeSearch).limit(req.query.page*25).then((doc) => {
 		res.json({ accounts: doc, error: null });
 	})
 });

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cuenta = require("../Models/Cuenta");
-const pedido = require("../Models/Compra");
+const compra = require("../Models/Compra");
 const Usuario = require("../Models/Usuario");
 var mongoose = require('mongoose');
 const multer = require('multer');
@@ -34,7 +34,6 @@ router.post("/Insertar", async (req, res) => {
 
 		})
 		console.log(savedAccount)
-
 
 	} catch (error) {
 		console.log(error.message)
@@ -227,7 +226,33 @@ router.get("/Eliminar/:id", (req, res) => {
 			console.log("error al cambiar", err.message);
 		});
 });
-
+router.post('/RemoverVendidas', (req, res) => {
+	cuenta.find({Estado: "Vendida"}).then((accounts) => {
+		console.log(accounts);
+		if(Object.keys(accounts).length > 0){
+			for(let acc in accounts){
+				console.log(acc);
+				compra.findByIdAndRemove({_id: accounts[acc]._id}).then((doc) => {
+					console.log(`Cuenta: {accounts[acc].titulo} removida de compras`);
+					cuenta.findByIdAndDelete({_id: accounts[acc]._id}).then((doc) => {
+						console.log(`Cuenta: {accounts[acc].titulo} removida de cuentas en venta`);
+						res.status(200).json({response: "Cuentas eliminadas"})
+					}).catch((err) => {
+						console.log(err.message);
+						res.status(400).json({error: err.message});
+					})
+				}).catch((err) => {
+					console.log(err.message);
+				});
+			}
+		}else{
+			res.status(200).json({response: "No hay cuentas por remover"});
+		}
+	}).catch((err) => {
+		console.log("No hay nada que remover");
+		res.status(400).json({error: err.message});
+	});
+})
 //Es una función a parte
 //Esta es la función para subir imagenes al servidor
 // la función upload.single('photo') se encarga de subir la foto, de la variable llamada photo

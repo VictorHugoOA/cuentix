@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 
 //conexion 
 
-mongoose.connect('mongodb://localhost:27017/Libros', {useFindAndModify:false,useCreateIndex: true,useNewUrlParser:true, useUnifiedTopology:true})
+mongoose.connect('mongodb://localhost:27017/CuentiX', {useFindAndModify:false,useCreateIndex: true,useNewUrlParser:true, useUnifiedTopology:true})
 .then(() => console.log('Base de datos conectada'))
 .catch(e => console.log('error db:', e))
 

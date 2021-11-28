@@ -30,7 +30,7 @@ router.post("/Insertar", async (req, res) => {
 		res.json({
 			error: null,
 			response: "Añadido",
-			data: savedBook
+			data: savedAccount
 
 		})
 		console.log(savedAccount)
@@ -69,11 +69,31 @@ router.get("/VerPlataforma/:plataforma", async (req, res) => {
 
 //Ver todas las cuentas
 router.get("/VerTodos", async (req, res) => {
+	let makeSearch = {};
+	if("plataforma" in req.query){
+		makeSearch = {
+			Plataforma: {$regex: req.query.plataforma, $options: 'i'},
+			...makeSearch
+		}
+	}
 
-	cuenta.find({}).then((doc) => {
-		res.json({ lib: doc, error: null });
+	if("tipo" in req.query){
+		makeSearch = {
+			Tipo: {$regex: req.query.tipo, $options: 'i'},
+			...makeSearch
+		}
+	}
+
+	if("titulo" in req.query){
+		makeSearch= {
+			Titulo: {$regex: req.query.titulo, $options: 'i'},
+			...makeSearch
+		}
+	}
+
+	cuenta.find(makeSearch).skip((req.query.page-1)*25).limit(25).then((doc) => {
+		res.json({ accounts: doc, error: null });
 	})
-
 });
 
 //Ver filtrar cuentas por precio

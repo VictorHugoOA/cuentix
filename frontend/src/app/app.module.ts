@@ -11,6 +11,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BuyedAccountsComponent } from './components/buyed-accounts/buyed-accounts.component';
+import { BuyAccountDetailsComponent } from './components/buy-account-details/buy-account-details.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BuyedAccountsComponent } from './components/buyed-accounts/buyed-accoun
     NavBarComponent,
     ProductComponent,
     ProfileComponent,
-    BuyedAccountsComponent
+    BuyedAccountsComponent,
+    BuyAccountDetailsComponent
   ],
   imports: [
     BrowserModule,

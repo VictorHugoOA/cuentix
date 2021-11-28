@@ -1,29 +1,21 @@
 <div class="container py-5">
     <div class="row">
+        <div class="col-lg-2 mx-auto">
+            
+        </div>
         <div class="col-lg-8 mx-auto">
-            <ul class="list-group shadow">
+            <ul class="list-group shadow"  *ngFor="let account of accountsList | async">
                 <li class="list-group-item">
                     <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                         <div class="media-body order-2 order-lg-1">
-                            <h5 class="mt-0 font-weight-bold mb-2">Datos interesantes (2.9k Seguidores)</h5>
-                            <p class="font-italic text-muted mb-0 small">Una cuenta de instagram, totalmente en venta. Es una cuenta basada en publicar datos interesantes de todo tipo como música, películas, datos historicos, etc.</p>
+                            <h5 class="mt-0 font-weight-bold mb-2">{{account.Titulo}}</h5>
+                            <p class="font-italic mb-0 small">{{account.Descripcion}}</p>
+                            <p class="text-muted mb-0 small">{{account.Tipo}} | {{account.Plataforma}}</p>
                             <div class="d-flex align-items-center justify-content-between mt-1">
-                                <h6 class="font-weight-bold my-2">$2,800.00 MXN</h6>
+                                <h6 class="font-weight-bold my-2">{{account.Precio | currency:'MXN':'symbol':'1.2-2'}}</h6>
                             </div>
                         </div>
-                        <img src="../../../assets/images/instagram3.jpg" alt="" class="ml-lg-5 order-1 order-lg-2">
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
-                        <div class="media-body order-2 order-lg-1">
-                            <h5 class="mt-0 font-weight-bold mb-2">LOL | NA | LVL 30 | 60K+ EA | Sin rango</h5>
-                            <p class="font-italic text-muted mb-0 small">Cuenta de LOL, perfecta para poder empezar a rankear, tiene los 20 champs necesairios de requisito y la esencia faltante para comprar aquellos con los que vas a mainear.</p>
-                            <div class="d-flex align-items-center justify-content-between mt-1">
-                                <h6 class="font-weight-bold my-2">$2,800.00 MXN</h6>
-                            </div>
-                        </div>
-                        <img src="https://acckings-public.s3.amazonaws.com/7d20383e-979d-470a-a9ba-e3274d958ee0" alt="" class="ml-lg-5 order-1 order-lg-2">
+                        <img [src]="account.Imagen" alt="" class="ml-lg-5 order-1 order-lg-2">
                     </div>
                 </li>
             </ul>

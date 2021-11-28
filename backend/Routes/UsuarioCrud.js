@@ -432,7 +432,7 @@ router.get("/EliminarDeseo/:id_us/:id_des", (req, res) => {
 router.get("/MostrarTodos", (req, res) => {
 	console.log(req.body);
 	Usuario.find({}).then((doc) => {
-		res.json({ users: doc, error: null });
+		res.json({ users: doc, error: null, debug: req.body });
 	});
 });
 

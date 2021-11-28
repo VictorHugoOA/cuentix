@@ -115,7 +115,7 @@ router.get("/VerPed/:id_us/id_ped", async (req, res) => {
 	});
 });
 
-//Ver todos los pedidos de un usuario
+//Ver todas las pedidos de un usuario
 router.get("/Ver/:id_us", async (req, res) => {
 	const idus = req.params.id_us;
 	compra.find({ Id_usuario: idus }).then((doc) => {
@@ -132,7 +132,7 @@ router.get("/VerEstado/:id_us/:est", async (req, res) => {
 	});
 });
 
-//Cancelar pedido
+//Cancelar Compra
 router.put("/Cancelar/:id_us/:id_ped", (req, res) => {
 	const idus = req.params.id_us;
 	const idped = req.params.id_ped;
@@ -158,7 +158,7 @@ router.put("/Cancelar/:id_us/:id_ped", (req, res) => {
 
 //Admi crud
 
-//Ver un pedido
+//Ver una compra
 router.get("/VerCompra/:idped", async (req, res) => {
 	const idped = req.params.id_ped;
 
@@ -167,14 +167,14 @@ router.get("/VerCompra/:idped", async (req, res) => {
 	});
 });
 
-//Ver  todos de los pedidos
+//Ver todas de los compras
 router.get("/VerCompraTodos", async (req, res) => {
 	compra.find({}).then((doc) => {
 		res.json({ ped: doc, error: null });
 	});
 });
 
-//Modificar pedido
+//Modificar compra
 router.put("/Modificar/:id_ped", (req, res) => {
 	const idped = req.params.id_ped;
 	const est = req.body.estado;
@@ -198,7 +198,7 @@ router.put("/Modificar/:id_ped", (req, res) => {
 		});
 });
 
-//Eliminar pedido
+//Eliminar compra
 router.get("/Eliminar/:id_ped", (req, res) => {
 	const idped = req.params.id_ped;
 	compra

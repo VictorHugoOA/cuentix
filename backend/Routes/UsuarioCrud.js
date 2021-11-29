@@ -12,7 +12,7 @@ const schemaRegister = Joi.object({
     usuario: Joi.string().min(6).max(255).required(),
     email: Joi.string().max(255).required().email(),
     contra: Joi.string().min(2).max(1024).required(),
-    tipo: Joi.string().min(2).max(255).required()
+    tipo: Joi.string().min(2).max(255).required(),
 });
 const schemaLogin = Joi.object({
     usuario: Joi.string().min(6).max(255).required(),
@@ -43,7 +43,7 @@ router.post("/Registro", async(req, res) => {
             Usuario: req.body.usuario,
             Contrasena: password,
             Email: req.body.email,
-            Tipo: req.body.tipo
+            Tipo: req.body.tipo,
         });
 
         const savedUser = user.save();
@@ -78,6 +78,7 @@ router.post("/Insertar", async(req, res) => {
             Contrasena: password,
             Email: req.body.email,
             Admi: req.body.admi,
+            Tipo: req.body.tipo,
         });
 
         const savedUser = user.save();
@@ -136,7 +137,7 @@ router.get("/Ver/:id", async(req, res) => {
         // create token
         res.json({
             error: null,
-            user:user
+            user: user,
         });
     } catch (e) {
         return status(400).json({
@@ -160,7 +161,7 @@ router.put("/Modificar/:id", (req, res) => {
                 Contrasena: Contra,
                 Email: Ema,
                 Admi: ad,
-                Descripcion: desc
+                Descripcion: desc,
             },
         })
         .then((doc) => {
@@ -182,8 +183,6 @@ router.get("/Eliminar/:id", (req, res) => {
             console.log("error al cambiar", err.message);
         });
 });
-
-
 
 //Ver todos los usuarios
 router.get("/MostrarTodos", (req, res) => {

@@ -14,8 +14,7 @@ io.sockets.on('connection', (socket) => {
 	})
 });
 
-// Habilitar cors
-app.use(cors());
+
 // capturar body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

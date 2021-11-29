@@ -11,7 +11,9 @@ export class CuentasService {
   constructor(private http: HttpClient) {
 
   }
-  public getCatalogo(): Observable<any[]>{
-    return this.http.get('http://localhost:3000/Cuenta/VerTodos').pipe(map( (value: any) => value.accounts as any[]));
+  public getCatalogo(titulo: String, categoria: String, plataforma: String, pagina: Number): Observable<any[]>{
+    return this.http.get(`http://localhost:3000/Cuenta/VerTodos?titulo=${titulo}&tipo=${categoria}&plataforma=${plataforma}&pagina=${pagina}`)
+    .pipe(map( (value: any) => value.accounts as any[]));
   }
+
 }

@@ -1,4 +1,6 @@
-<div class="product-list">
+<div class="product-list" infiniteScroll
+    (scrolled)="onScroll()"
+    (scrolledUp)="onScrollUp()">
     <h1 class="align-center">Cuentas compradas</h1>
     <div class="product-container">
         <div class="card">

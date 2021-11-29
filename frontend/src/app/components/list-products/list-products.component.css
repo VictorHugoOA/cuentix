@@ -4,3 +4,44 @@ img {
     height: 170px;
     width: 140px;
 }
+input[type=radio]{
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+}
+label{
+    border-radius: 5px;
+    margin-right: 1em;
+}
+input[type=radio]:checked+label{
+    background-color: rgb(13, 110, 253);
+}
+input[type=radio]:hover + label{
+    background-color: rgb(13, 110, 253);
+}
+
+.align-center{
+    text-align: center;
+}
+
+button{
+    border-radius: 0px 5px 5px 0px;
+}
+.btn:active{
+    background-color: rgb(13, 110, 253);
+}
+.btn-primary:active{
+    background-color: rgb(13, 110, 253);
+}
+.btn:after{
+    background-color: rgb(13, 110, 253);
+}
+.btn-primary:after{
+    background-color: rgb(13, 110, 253);
+}
+.btn:active:after{
+    background-color: rgb(13, 110, 253);
+}
+.btn-primary:active:after{
+    background-color: rgb(13, 110, 253);
+}

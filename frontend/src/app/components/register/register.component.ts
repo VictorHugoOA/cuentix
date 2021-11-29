@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { RegistroService } from 'src/app/services/registro/registro.service';
 
 @Component({
   selector: 'app-register',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  userModel = new User('', '', '', '','');
+  constructor(private usuario: RegistroService) { }
+
+  nuevoUsr(){
+    console.log(this.userModel)
+    this.usuario.newUser(this.userModel);
+  }
 
   ngOnInit(): void {
   }

@@ -39,7 +39,7 @@ router.post("/Registro", async(req, res) => {
         const salt = await bcrypt.genSalt(10);
         const password = await bcrypt.hash(req.body.contra, salt);
 
-        const user = new usuario({
+        const user = new Usuario({
             Usuario: req.body.usuario,
             Contrasena: password,
             Email: req.body.email,
@@ -53,7 +53,8 @@ router.post("/Registro", async(req, res) => {
             data: savedUser,
         });
     } catch (error) {
-        res.status(400).json({ error });
+        console.log(error);
+        res.status(400).json({ error: "Hubo un error" });
     }
 });
 

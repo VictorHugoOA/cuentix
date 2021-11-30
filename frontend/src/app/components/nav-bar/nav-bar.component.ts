@@ -20,7 +20,6 @@ export class NavBarComponent implements OnInit {
       this.router.navigate([`site/profile/${sessionId}`]);
       return;
     }
-
     this.router.navigate(['login']);
 
   }

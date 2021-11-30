@@ -34,13 +34,13 @@
                                 <p class="text-muted mb-0 small">{{account.accountDetails[0].Tipo}} | {{account.accountDetails[0].Plataforma}} | {{account.Fecha}}</p>
                                 <div class="d-flex align-items-center justify-content-between mt-1">
                                     
-                                    <select name="Estado" >
-                                        <option value="" selected>{{account.Estado}}</option>
-                                        <option value="Revision">Revision</option>
-                                        <option value="Verificada">Verificada</option>
-                                        <option value="Vendida">Vendida</option>
+                                    <select name="Estado" #states (change) = "changeStatus($event)">
+                                        <option [ngValue]="" selected>{{account.Estado}}</option>
+                                        <option [ngValue]="{id:account._id, estado: 'Revision'}" >Revision</option>
+                                        <option [ngValue]="{id:account._id, estado: 'Verificada'}">Verificada</option>
+                                        <option [ngValue]="{id:account._id, estado: 'Vendida'}">Vendida</option>
                                     </select>
-                                    <input type="button" value="Actualizar" class="btn btn-outline-primary align-middle" onclick="">
+                                    
                                
                                 </div>
                             </div>

@@ -27,6 +27,11 @@ constructor(private accounts: ComprasService, private route: Router) {
   this.accountsList = this.accounts.getCuentasTotales();
 }
 
+changeStatus(evento: any){
+
+  console.log(evento.target)
+}
+
 setCategoria(categoria: String){
   this.categoria = categoria;
   //this.accountsList = this.accounts.getCatalogo(this.titulo, this.categoria, this.plataforma, this.pagina);

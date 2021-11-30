@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ComprasService } from 'src/app/services/compras/compras.service';
 
 @Component({
   selector: 'app-buy-account-details',
@@ -7,7 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuyAccountDetailsComponent implements OnInit {
 
-  constructor() { }
+  public id: String;
+  public buyAccount: Observable<any>;
+  constructor(private router: ActivatedRoute, private buys: ComprasService) {
+    this.id = this.router.snapshot.paramMap.get('id') as String | "";
+    this.buyAccount = this.buys.getCompra(this.id);
+  }
 
   ngOnInit(): void {
   }

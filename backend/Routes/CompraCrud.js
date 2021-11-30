@@ -84,7 +84,7 @@ router.put("/Insertar/:id_us", async (req, res) => {
 			Id_usuario: mongoose.Types.ObjectId(idus),
 			Id_cuenta: mongoose.Types.ObjectId(req.body.cuenta),
 			Fecha: req.body.fecha,
-			Estado: req.body.estado,
+			Estado: "Revision",
 		});
 		const savedBuy = buy.save();
 		console.log(savedBuy);
@@ -92,7 +92,7 @@ router.put("/Insertar/:id_us", async (req, res) => {
 		const accAdd = req.body.cuenta;
 		cuenta.updateOne({ _id: accAdd },
 				{
-					Estado: "En Compra"
+					Estado: "Vendida"
 				})
 			.then((doc) => {
 		})
@@ -107,13 +107,19 @@ router.put("/Insertar/:id_us", async (req, res) => {
 });
 
 //Ver compra de usuario
-router.get("/VerPed/:id_us/id_ped", async (req, res) => {
-	const idus = req.params.id_us;
+router.get("/VerPed/:id_ped", async (req, res) => {
 	const idbuy = req.params.id_buy;
-
-	compra.findOne({ _id: idbuy, Id_usuario: idus }).then((doc) => {
-		res.json({ ped: doc, error: null });
-	});
+	compra.aggregate([{$match: {_id: mongoose.Types.ObjectId(dbuy)}},
+	{
+		$lookup: {
+			from: 'Cuenta',
+			localField: 'Id_cuenta',
+			foreignField: '_id',
+			as: 'accountDetails'
+		}
+	}]).then((doc) => {
+		res.json({ped: doc, error: null});
+	})
 });
 
 //Ver todas las pedidos de un usuario

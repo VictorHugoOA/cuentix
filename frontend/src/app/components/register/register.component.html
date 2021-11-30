@@ -3,7 +3,7 @@
     <div class="login-block">
         <h1>Registrate</h1>
 
-        <form #userForm="ngForm" (ngSubmit)="nuevoUsr()">
+        <form [formGroup]="userForm" (ngSubmit)="nuevoUsr()">
             <div class="form-group">
                 <input type="text" value="" name="username" [(ngModel)]="userModel.usuario"
                     placeholder="Nombre de usuario" id="username" />
@@ -13,7 +13,7 @@
                     id="correo" />
             </div>
             <select aria-label="Seleccionar usuario" name="tipo-usuario" class="nice-select wide" [(ngModel)]="userModel.type">
-                <option selected>Selecciona tipo de usuario</option>
+                <option disabled>Selecciona tipo de usuario</option>
                 <option value="Comprador">Comprador</option>
                 <option value="Vendedor">Vendedor</option>
             </select>

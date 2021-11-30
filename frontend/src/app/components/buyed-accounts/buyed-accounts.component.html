@@ -1,35 +1,26 @@
-<div class="product-list" infiniteScroll
-    (scrolled)="onScroll()"
-    (scrolledUp)="onScrollUp()">
+<div class="product-list" *ngIf="(cuentasCompradas | async) as listaCuentas; else noAccounts" infiniteScroll
+    (scrolled)="onScroll()" (scrolledUp)="onScrollUp()">
     <h1 class="align-center">Cuentas compradas</h1>
     <div class="product-container">
-        <div class="card">
-            <div class="title">Product 1</div>
+        <div class="card" *ngFor="let compra of listaCuentas">
+            <a class="title">{{compra.accountDetails.Titulo}}</a>
             <div class="image">
-                <img src="../../../assets/images/cuenta1.PNG" alt="" />
-            </div>
-            <div class="text">
-                <p>Product description</p>
+                <img [src]="compra.accountDetails.Imagen" alt="" />
             </div>
             <div class="status">
-                <button class="view-button">Ver</button>
-                <p>Estado</p>
-            </div>
-        </div>
-        <div class="card">
-            <div class="title">
-                <p>Product 2 description</p>
-            </div>
-            <div class="image">
-                <img src="../../../assets/images/instagram1.jpg" alt="">
-            </div>
-            <div class="text">Product 2 description</div>
-            <div class="check-status">
-                <div class="status">
-                    <button class="view-button">Ver</button>
-                    <p>Estado</p>
-                </div>
+                <button (click)="clickSeeBuy(compra._id)" class="view-button">Ver</button>
+                <p>{{compra.Estado}}</p>
             </div>
         </div>
     </div>
 </div>
+<ng-template #noAccounts>
+    <div class="container-fluid">
+        <div class="row justify-content-center py-5">
+            <div class="col-lg-8 mx-auto align-middle">
+                <p class="display-1 align-center">Parece que aún no has realizado alguna compra</p>
+                <p class="h2 align-center">Pulsa <button class="btn btn-primary" (click)="clickBtn()">aquí</button> para ir a las cuentas en venta</p>
+            </div>
+        </div>
+    </div>
+</ng-template>

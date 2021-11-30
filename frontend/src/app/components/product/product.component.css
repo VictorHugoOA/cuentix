@@ -14,7 +14,7 @@ body{
     background-color: #fff;
     background-clip: border-box;
     border: 0 solid transparent;
-    border-radius: 0;
+    border-radius: 5px;
 }
 .card .card-subtitle {
     font-weight: 300;

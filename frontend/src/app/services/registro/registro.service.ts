@@ -33,6 +33,10 @@ export class RegistroService {
     })
   }
 
+  public getSessionID(){
+    return sessionStorage.getItem('user');
+  }
+
   public logUsr(body: User): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post('http://localhost:3000/Usuario/login', {

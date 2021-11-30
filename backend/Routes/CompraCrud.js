@@ -5,6 +5,7 @@ const usuario = require("../Models/Usuario");
 const cuenta = require("../Models/Cuenta");
 const ejs = require("ejs");
 const path = require("path");
+const mongoose = require ("mongoose");
 
 router.get("/TicketPDF/:id_ped.pdf", async (req, res) => {
 	const p = await pedido.findById({ _id: req.params.id_ped });
@@ -98,9 +99,10 @@ router.put("/Insertar/:id_us", async (req, res) => {
 		res.json({
 			error: null,
 			response: "Añadido",
-			data: savedUser,
+			data: savedBuy,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(400).json({ error });
 	}
 });

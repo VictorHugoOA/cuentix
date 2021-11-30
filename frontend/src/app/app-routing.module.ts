@@ -8,6 +8,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
+import { StatusAdminComponent } from './components/status-admin/status-admin.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'site/home'},
@@ -16,7 +17,8 @@ const routes: Routes = [
     {path: 'products', component: ListProductsComponent},
     {path: 'product/:id', component: ProductComponent},
     {path: 'profile', component: ProfileComponent},
-    {path: 'buyed-accounts/:id', component: BuyedAccountsComponent}
+    {path: 'buyed-accounts/:id', component: BuyedAccountsComponent},
+    {path: 'status-accounts', component: StatusAdminComponent}
   ]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent}

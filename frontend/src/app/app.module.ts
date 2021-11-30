@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { BuyedAccountsComponent } from './components/buyed-accounts/buyed-accounts.component';
 import { BuyAccountDetailsComponent } from './components/buy-account-details/buy-account-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StatusAdminComponent } from './components/status-admin/status-admin.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProductComponent,
     ProfileComponent,
     BuyedAccountsComponent,
-    BuyAccountDetailsComponent
+    BuyAccountDetailsComponent,
+    StatusAdminComponent
   ],
   imports: [
     BrowserModule,

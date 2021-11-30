@@ -29,11 +29,19 @@
                     <li class="list-group-item">
                         <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                             <div class="media-body order-2 order-lg-1">
-                                <h5 class="mt-0 font-weight-bold mb-2">{{account.Id_usuario}}</h5>
-                                <p class="font-italic mb-0 small">{{account.Id_cuenta}}</p>
-                                <p class="text-muted mb-0 small">{{account.Fecha}}</p>
+                                <h5 class="mt-0 font-weight-bold mb-2">{{account.accountDetails[0].Titulo}}</h5>
+                                <p class="font-italic mb-0 small">{{account.accountDetails[0].Descripcion}}</p>
+                                <p class="text-muted mb-0 small">{{account.accountDetails[0].Tipo}} | {{account.accountDetails[0].Plataforma}} | {{account.Fecha}}</p>
                                 <div class="d-flex align-items-center justify-content-between mt-1">
-                                    <h6 class="font-weight-bold my-2">{{account.Estado}}</h6>
+                                    
+                                    <select name="Estado" >
+                                        <option value="" selected>{{account.Estado}}</option>
+                                        <option value="Revision">Revision</option>
+                                        <option value="Verificada">Verificada</option>
+                                        <option value="Vendida">Vendida</option>
+                                    </select>
+                                    <input type="button" value="Actualizar" class="btn btn-outline-primary align-middle" onclick="">
+                               
                                 </div>
                             </div>
                             <img [src]="account.Imagen" alt="" class="ml-lg-5 order-1 order-lg-2">

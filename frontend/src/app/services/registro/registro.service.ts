@@ -6,11 +6,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegistroService {
-  url = 'http://localhost:3000/register/Registro';
-
   constructor(private http: HttpClient, private router: Router,
               private toastr: ToastrService) {
 

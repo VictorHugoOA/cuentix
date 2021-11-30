@@ -16,4 +16,9 @@ export class CuentasService {
     .pipe(map( (value: any) => value.accounts as any[]));
   }
 
+  public getCuenta(id: String): Observable<any>{
+    return this.http.get(`http://localhost:3000/Cuenta/Ver/${id}`)
+    .pipe(map((value:any) => value.data[0] as any));
+  }
+
 }

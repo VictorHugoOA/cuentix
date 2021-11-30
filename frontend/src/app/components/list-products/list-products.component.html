@@ -28,7 +28,7 @@
                     <li class="list-group-item">
                         <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                             <div class="media-body order-2 order-lg-1">
-                                <h5 class="mt-0 font-weight-bold mb-2">{{account.Titulo}}</h5>
+                                <h5 class="mt-0 font-weight-bold mb-2 p-2"><a (click)="goToProductPage(account._id)">{{account.Titulo}}</a></h5>
                                 <p class="font-italic mb-0 small">{{account.Descripcion}}</p>
                                 <p class="text-muted mb-0 small">{{account.Tipo}} | {{account.Plataforma}}</p>
                                 <div class="d-flex align-items-center justify-content-between mt-1">

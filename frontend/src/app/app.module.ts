@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -14,7 +17,6 @@ import { ProductComponent } from './components/product/product.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BuyedAccountsComponent } from './components/buyed-accounts/buyed-accounts.component';
 import { BuyAccountDetailsComponent } from './components/buy-account-details/buy-account-details.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StatusAdminComponent } from './components/status-admin/status-admin.component';
 
 @NgModule({
@@ -37,7 +39,9 @@ import { StatusAdminComponent } from './components/status-admin/status-admin.com
     HttpClientModule,
     InfiniteScrollModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

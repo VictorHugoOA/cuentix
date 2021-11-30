@@ -24,6 +24,17 @@ input[type=radio]:hover + label{
     text-align: center;
 }
 
+h5{
+    transition: linear 0.3s;
+    border-radius: 10px;
+}
+h5:hover{
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: rgb(13, 110, 253);
+}
+
 button{
     border-radius: 0px 5px 5px 0px;
 }

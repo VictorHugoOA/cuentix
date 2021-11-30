@@ -18,4 +18,8 @@ export class ComprasService {
     return this.http.get(`http://localhost:3000/Compras/VerCompraTodos`)
     .pipe(map( (value: any) => value.ped as any[]));
   }
+  public getCompra(id: String): Observable<any>{
+    return this.http.get(`http://localhost:3000/Compras/VerPed/${id}`)
+    .pipe(map((value:any) => value.ped[0] as any));
+  }
 }

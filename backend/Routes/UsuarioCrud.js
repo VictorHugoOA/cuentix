@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 // validation
 const Joi = require("@hapi/joi");
 const schemaRegister = Joi.object({
-    usuario: Joi.string().min(6).max(255).required(),
+    usuario: Joi.string().min(4).max(255).required(),
     email: Joi.string().max(255).required().email(),
     contra: Joi.string().min(2).max(1024).required(),
     tipo: Joi.string().min(2).max(255).required(),
@@ -46,7 +46,7 @@ router.post("/Registro", async(req, res) => {
             Tipo: req.body.tipo,
         });
 
-        const savedUser = user.save();
+        const savedUser = await user.save();
         res.json({
             error: null,
             response: "Añadido",
@@ -187,10 +187,10 @@ router.get("/Eliminar/:id", (req, res) => {
 
 //Ver todos los usuarios
 router.get("/MostrarTodos", (req, res) => {
-	console.log(req.body);
-	Usuario.find({}).then((doc) => {
-		res.json({ users: doc, error: null, debug: req.body });
-	});
+    console.log(req.body);
+    Usuario.find({}).then((doc) => {
+        res.json({ users: doc, error: null, debug: req.body });
+    });
 });
 
 module.exports = router;

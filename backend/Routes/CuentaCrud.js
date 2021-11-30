@@ -45,8 +45,16 @@ router.post("/Insertar", async (req, res) => {
 //Ver cuenta
 router.get("/Ver/:id", async (req, res) => {
 	const id = req.params.id;
-	cuenta.findById({ _id: id }).then((doc) => {
-		res.json({ data: doc, error: null });
+	cuenta.aggregate([{$match: {_id: mongoose.Types.ObjectId(id)}},
+	{
+		$lookup: {
+			from: "Usuario",
+			localField: "Id_vendedor",
+			foreignField: '_id',
+			as: 'vendedor'
+		}
+	}]).then((doc) => {
+		res.json({data: doc, error: null});
 	});
 });
 
@@ -68,7 +76,9 @@ router.get("/VerPlataforma/:plataforma", async (req, res) => {
 
 //Ver todas las cuentas
 router.get("/VerTodos", async (req, res) => {
-	let makeSearch = {};
+	let makeSearch = {
+		Estado: "Disponible"
+	};
 	if("plataforma" in req.query){
 		makeSearch = {
 			Plataforma: {$regex: req.query.plataforma, $options: 'i'},
@@ -226,33 +236,6 @@ router.get("/Eliminar/:id", (req, res) => {
 			console.log("error al cambiar", err.message);
 		});
 });
-router.post('/RemoverVendidas', (req, res) => {
-	cuenta.find({Estado: "Vendida"}).then((accounts) => {
-		console.log(accounts);
-		if(Object.keys(accounts).length > 0){
-			for(let acc in accounts){
-				console.log(acc);
-				compra.findByIdAndRemove({_id: accounts[acc]._id}).then((doc) => {
-					console.log(`Cuenta: {accounts[acc].titulo} removida de compras`);
-					cuenta.findByIdAndDelete({_id: accounts[acc]._id}).then((doc) => {
-						console.log(`Cuenta: {accounts[acc].titulo} removida de cuentas en venta`);
-						res.status(200).json({response: "Cuentas eliminadas"})
-					}).catch((err) => {
-						console.log(err.message);
-						res.status(400).json({error: err.message});
-					})
-				}).catch((err) => {
-					console.log(err.message);
-				});
-			}
-		}else{
-			res.status(200).json({response: "No hay cuentas por remover"});
-		}
-	}).catch((err) => {
-		console.log("No hay nada que remover");
-		res.status(400).json({error: err.message});
-	});
-})
 //Es una función a parte
 //Esta es la función para subir imagenes al servidor
 // la función upload.single('photo') se encarga de subir la foto, de la variable llamada photo

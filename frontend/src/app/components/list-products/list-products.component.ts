@@ -43,6 +43,10 @@ export class ListProductsComponent implements OnInit {
     this.accounts.getCatalogo(this.titulo, this.categoria, this.plataforma, this.pagina);
   }
 
+  goToProductPage(id: String){
+    this.route.navigate([`site/product/${id}`])
+  }
+
   onScrollUp(){
     this.pagina = this.pagina - 1;
     if(this.pagina < 1){

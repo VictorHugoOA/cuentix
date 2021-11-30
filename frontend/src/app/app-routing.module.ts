@@ -10,20 +10,24 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'site/home'},
-  {path: 'site', component: NavBarComponent, children: [
-    {path: 'home', component: HomeComponent},
-    {path: 'products', component: ListProductsComponent},
-    {path: 'product/:id', component: ProductComponent},
-    {path: 'profile', component: ProfileComponent},
-    {path: 'buyed-accounts/:id', component: BuyedAccountsComponent}
-  ]},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent}
+  { path: '', pathMatch: 'full', redirectTo: 'site/home' },
+  {
+    path: 'site',
+    component: NavBarComponent,
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'products', component: ListProductsComponent },
+      { path: 'product/:id', component: ProductComponent },
+      { path: 'profile/:id', component: ProfileComponent },
+      { path: 'buyed-accounts/:id', component: BuyedAccountsComponent },
+    ],
+  },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

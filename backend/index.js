@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose')
 const bodyParser= require('body-parser');
 const cors = require('cors');
-const http = require('http');
 const app = express();
 const port =3000;
 require('dotenv').config()
@@ -49,6 +48,7 @@ app.use('/Compras', BuyRoutes);
 app.use('/logo', express.static('template'));
 
 function callbackRemoveAccounts(){
+	const http = require('http');
 	http.post('http://localhost:3000/Cuenta/RemoverVendidas', (response) => {
 		response.on('end', () => {
 			console.log("Removidos sin problemas");
@@ -60,5 +60,5 @@ function callbackRemoveAccounts(){
 
 app.listen(port, function() {
   console.log(`Servidor web escuchando en el puerto ${port}`);
-  setInterval(callbackRemoveAccounts, 3600000);
+  //setInterval(callbackRemoveAccounts, 3600000);
 });

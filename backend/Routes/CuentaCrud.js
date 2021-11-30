@@ -26,7 +26,7 @@ router.post("/Insertar", async (req, res) => {
 			Imagen: req.body.imagen,
 		});
 
-		const savedAccount = account.save();
+		const savedAccount = await account.save();
 		res.json({
 			error: null,
 			response: "Añadido",

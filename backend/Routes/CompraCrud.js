@@ -120,7 +120,15 @@ router.get("/VerPed/:id_us/id_ped", async (req, res) => {
 //Ver todas las pedidos de un usuario
 router.get("/Ver/:id_us", async (req, res) => {
 	const idus = req.params.id_us;
-	compra.find({ Id_usuario: idus }).limit(req.query.pagina*25).then((doc) => {
+	compra.aggregate([{ $match: {Id_usuario: idus} },
+	{
+		$lookup: {
+			from: 'Cuenta',
+			localField: 'Id_cuenta',
+			foreignField: '_id',
+			as: 'accountDetails'
+		}
+	}]).limit(req.query.pagina*25).then((doc) => {
 		res.json({ ped: doc, error: null });
 	});
 });
@@ -171,9 +179,17 @@ router.get("/VerCompra/:idped", async (req, res) => {
 
 //Ver todas de los compras
 router.get("/VerCompraTodos", async (req, res) => {
-	compra.find({}).then((doc) => {
-		res.json({ ped: doc, error: null });
-	});
+
+	compra.aggregate([
+		{$lookup: {
+			from: 'Cuenta',
+			localField: 'Id_cuenta',
+			foreignField: '_id',
+			as: 'accountDetails'
+		}}
+	]).then((doc) => {
+		res.json({ped: doc, error: null});
+	})
 });
 
 //Modificar compra

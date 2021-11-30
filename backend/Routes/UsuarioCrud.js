@@ -53,7 +53,8 @@ router.post("/Registro", async(req, res) => {
             data: savedUser,
         });
     } catch (error) {
-        res.status(400).json({ error });
+        console.log(error);
+        res.status(400).json({ error: "Hubo un error" });
     }
 });
 

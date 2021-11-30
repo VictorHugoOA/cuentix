@@ -9,7 +9,7 @@ import { RegistroService } from 'src/app/services/registro/registro.service';
 })
 export class RegisterComponent implements OnInit {
 
-  userModel = new User('', '', '', '','');
+  userModel = new User('', '', '', '','Comprador');
   constructor(private usuario: RegistroService) { }
 
   nuevoUsr(){

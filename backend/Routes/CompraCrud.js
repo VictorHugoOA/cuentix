@@ -149,14 +149,12 @@ router.get("/VerEstado/:id_us/:est", async (req, res) => {
 });
 
 //Cancelar Compra
-router.put("/Cancelar/:id_us/:id_ped", (req, res) => {
-	const idus = req.params.id_us;
+router.put("/Cancelar/:id_ped", (req, res) => {
 	const idped = req.params.id_ped;
-	const est = "Cancelado";
-
+	const est = "Cancelada";
 	compra
 		.findByIdAndUpdate(
-			{ _id: idped, Id_usuario: idus },
+			{ _id: idped},
 			{
 				$set: {
 					Estado: est,
@@ -165,6 +163,10 @@ router.put("/Cancelar/:id_us/:id_ped", (req, res) => {
 		)
 		.then((doc) => {
 			console.log(doc);
+			cuenta.findByIdAndUpdate(
+				{_id: doc.Id_cuenta},
+				{$set: {Estado: "Disponible"}}
+				)
 			res.json({ response: "compra Modificada" });
 		})
 		.catch((err) => {
@@ -187,6 +189,7 @@ router.get("/VerCompra/:idped", async (req, res) => {
 router.get("/VerCompraTodos", async (req, res) => {
 
 	compra.aggregate([
+		{$match: { Estado: {$nin: ["Cancelada", "Vendida"]}}},
 		{$lookup: {
 			from: 'Cuenta',
 			localField: 'Id_cuenta',
@@ -202,7 +205,6 @@ router.get("/VerCompraTodos", async (req, res) => {
 router.put("/Modificar/:id_ped", (req, res) => {
 	const idped = req.params.id_ped;
 	const est = req.body.estado;
-	const fecha = req.body.fecha;
 
 	compra
 		.findByIdAndUpdate(
@@ -210,7 +212,6 @@ router.put("/Modificar/:id_ped", (req, res) => {
 			{
 				$set: {
 					Estado: est,
-					Fecha: fecha, 
 				},
 			}
 		)

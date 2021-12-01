@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class ComprasService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
   public getCuentasCompradasUsuario(idUsuario: String, pagina: Number): Observable<any[]>{
     return this.http.get(`http://localhost:3000/Compras/Ver/${idUsuario}?pagina=${pagina}`)
     .pipe(map( (value: any) => value.accounts as any[]));
@@ -21,5 +22,14 @@ export class ComprasService {
   public getCompra(id: String): Observable<any>{
     return this.http.get(`http://localhost:3000/Compras/VerPed/${id}`)
     .pipe(map((value:any) => value.ped[0] as any));
+  }
+  public setEstadoPedido(id: String, estado: String): Promise<any>{
+    return new Promise((resolve, reject) => {
+      this.http.put(`http://localhost:3000/Compras/Modificar/${id}`,{estado: estado})
+      .subscribe((response) => {
+        resolve(response);
+        this.router.navigate(['site/status-accounts']);
+      })
+    })
   }
 }

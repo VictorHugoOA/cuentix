@@ -24,6 +24,14 @@ export class NavBarComponent implements OnInit {
 
   }
 
+  clickSignOut(){
+    this.registro.signOut();
+  }
+
+  isSessionUp(){
+    return this.registro.getSessionID();
+  }
+
   clickBuyedAccounts(){
     const sessionId = this.registro.getSessionID();
     if(sessionId){

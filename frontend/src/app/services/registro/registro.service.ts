@@ -40,6 +40,11 @@ export class RegistroService {
     return sessionStorage.getItem('user');
   }
 
+  public signOut(){
+    sessionStorage.removeItem('user');
+    this.router.navigate(['site/home']);
+  }
+
   public logUsr(body: User): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http

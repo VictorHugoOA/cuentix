@@ -51,8 +51,8 @@
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <!-- Search Form -->
-                        <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-sign-out" aria-hidden="true"></i
+                        <div class="sinlge-bar" *ngIf="isSessionUp() != null">
+                            <a (click)="clickSignOut()" class="single-icon"><i class="fa fa-sign-out" aria-hidden="true"></i
               ></a>
                         </div>
                         <div class="sinlge-bar">

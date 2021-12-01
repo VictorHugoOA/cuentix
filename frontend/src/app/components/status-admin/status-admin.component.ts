@@ -27,9 +27,10 @@ constructor(private accounts: ComprasService, private route: Router) {
   this.accountsList = this.accounts.getCuentasTotales();
 }
 
-changeStatus(evento: any){
-
-  console.log(evento.target)
+changeStatus(evento: any, id: String){
+  console.log(id);
+  console.log(evento.target.value);
+  this.accounts.setEstadoPedido(id, evento.target.value);
 }
 
 setCategoria(categoria: String){

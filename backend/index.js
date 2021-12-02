@@ -28,7 +28,6 @@ app.use((req, res, next) => {
 
 mongoose
     .connect("mongodb://localhost:27017/CuentiX", {
-        useFindAndModify: false,
         useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true,

@@ -3,31 +3,33 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-const port = 3000;
+const port = 3004;
 require("dotenv").config();
-const io = require("socket.io")(3001);
+//const io = require("socket.io")(3001);
 
+/*
 io.sockets.on("connection", (socket) => {
     socket.on("create", (room) => {
         socket.join(room);
         socket.emit("joined", {});
     });
 });
-
+*/
 // capturar body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public/"));
 app.use(cors());
+/*
 app.use((req, res, next) => {
     req.io = io;
     next();
 });
-
+*/
 //conexion
 
 mongoose
-    .connect("mongodb://localhost:27017/CuentiX", {
+    .connect(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@db-mongodb-nyc1-11133-38a522f2.mongo.ondigitalocean.com/CuentiX?authSource=admin&replicaSet=db-mongodb-nyc1-11133&tls=true&tlsCAFile=ca-certificate.crt`, {
         useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true,

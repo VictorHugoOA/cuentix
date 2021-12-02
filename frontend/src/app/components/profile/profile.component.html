@@ -1,28 +1,33 @@
-<div class="container" *ngIf="(usuario | async) as user">
+<div class="container" *ngIf="usuario | async as user">
     <div class="row">
         <div class="col">
             <h1>Perfil</h1>
             <br />
-            <button type="button" class="btn btn-primary btn-lg">Modificar</button>
+            <button (click)="modificar()" class="btn btn-primary btn-lg">
+        Modificar
+      </button>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <h2>Usuario:</h2>
             <br />
-            <h5>{{user.Usuario}}</h5>
+            <h5>{{ user.Usuario }}</h5>
         </div>
         <div class="col">
             <h2>Email:</h2>
             <br />
-            <h5>{{user.Email}}</h5>
+            <h5>{{ user.Email }}</h5>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <h2>Descripción:</h2>
             <br />
-            <h5>{{user.Descripcion}}</h5>
+            <h5 [routerLink]="['home']" *ngIf="!user.Descripcion">
+                Agrega una descripción :D
+            </h5>
+            <h5>{{ user.Descripcion }}</h5>
         </div>
     </div>
 </div>

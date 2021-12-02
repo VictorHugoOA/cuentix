@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UsuariosService } from 'src/app/Services/usuario/usuarios.service';
 
@@ -11,10 +11,18 @@ import { UsuariosService } from 'src/app/Services/usuario/usuarios.service';
 export class ProfileComponent implements OnInit {
   public id: String;
   public usuario: Observable<any>;
-  constructor(private Usuario: UsuariosService, private route: ActivatedRoute) {
+  constructor(
+    private Usuario: UsuariosService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.id = this.route.snapshot.paramMap.get('id') as String;
     this.usuario = this.Usuario.getUsuario(this.id);
   }
 
   ngOnInit(): void {}
+
+  modificar() {
+    this.router.navigate([`site/modprofile/${this.id}`]);
+  }
 }

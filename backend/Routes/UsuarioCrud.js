@@ -61,7 +61,6 @@ router.post("/Registro", async(req, res) => {
 //Añadir usuario por admi
 router.post("/Insertar", async(req, res) => {
     try {
-        console.log("hola");
         const isEmailExist = await Usuario.findOne({ Email: req.body.email });
         const isUserExist = await Usuario.findOne({ Usuario: req.body.usuario });
 
@@ -148,13 +147,21 @@ router.get("/Ver/:id", async(req, res) => {
 });
 
 //Modificar usuario
-router.put("/Modificar/:id", (req, res) => {
+router.put("/Modificar/:id", async(req, res) => {
     const id = req.params.id;
     const user = req.body.usuario;
     const Contra = req.body.contra;
     const Ema = req.body.email;
     const ad = req.body.admi;
     const desc = req.body.desc;
+
+    const isEmailExist = await Usuario.findOne({ Email: req.body.email });
+
+    if (isEmailExist && isEmailExist._id != id) {
+        return res
+            .status(400)
+            .json({ error: "Email ya registrado en otra cuenta" });
+    }
 
     Usuario.findByIdAndUpdate({ _id: id }, {
             $set: {

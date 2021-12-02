@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <h1>Modificar Datos del Perfil</h1>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="profileForm" (ngSubmit)="guardar()">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="nombre" class="form-label">Nombre de usuario</label>
+                        <input type="text" class="form-control" formControlName="nombre" id="nombre" placeholder="Nombre de usuario" />
+                    </div>
+                    <div class="form-group col">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" formControlName="email" id="email" placeholder="example@mail.com" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="contra" class="form-label">Contraseña</label>
+                        <br />
+                        <input type="password" id="contra" formControlName="contra" placeholder="Contraseña" id="password" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="Descripcion" class="form-label">Descripción</label>
+                        <textarea type="" class="form-control" id="Descripcion" formControlName="Descripcion" placeholder="Añade descripción"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mb-3">Guardar</button>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button (click)="volver()" class="btn btn-primary mb-3">Volver</button>
+            </div>
+        </div>
+    </div>
+</div>

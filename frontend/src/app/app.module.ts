@@ -18,6 +18,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { BuyedAccountsComponent } from './components/buyed-accounts/buyed-accounts.component';
 import { BuyAccountDetailsComponent } from './components/buy-account-details/buy-account-details.component';
 import { StatusAdminComponent } from './components/status-admin/status-admin.component';
+import { ModprofileComponent } from './components/modprofile/modprofile.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { StatusAdminComponent } from './components/status-admin/status-admin.com
     ProfileComponent,
     BuyedAccountsComponent,
     BuyAccountDetailsComponent,
-    StatusAdminComponent
+    StatusAdminComponent,
+    ModprofileComponent
   ],
   imports: [
     BrowserModule,

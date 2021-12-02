@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
-import { UsuariosService } from 'src/app/Services/usuario/usuarios.service';
+import { UsuariosService } from 'src/app/services/usuario/usuarios.service';
 
 @Component({
   selector: 'app-modprofile',

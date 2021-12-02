@@ -3,8 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ComprasService } from 'src/app/services/compras/compras.service';
-import { CuentasService } from 'src/app/services/cuentas/cuentas.service';
-import { UsuariosService } from 'src/app/Services/usuario/usuarios.service';
+import { UsuariosService } from 'src/app/services/usuario/usuarios.service';
 
 @Component({
   selector: 'app-status-admin',

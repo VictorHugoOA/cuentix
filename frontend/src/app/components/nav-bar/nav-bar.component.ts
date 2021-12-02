@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { RegistroService } from 'src/app/services/registro/registro.service';
-import { UsuariosService } from 'src/app/Services/usuario/usuarios.service';
+import { UsuariosService } from 'src/app/services/usuario/usuarios.service';
 
 @Component({
   selector: 'app-nav-bar',

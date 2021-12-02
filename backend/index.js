@@ -18,7 +18,7 @@ io.sockets.on("connection", (socket) => {
 // capturar body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + "/public/"));
+app.use('/', express.static("public"));
 app.use(cors());
 /*
 app.use((req, res, next) => {
@@ -27,7 +27,6 @@ app.use((req, res, next) => {
 });
 */
 //conexion
-
 mongoose
     .connect(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@db-mongodb-nyc1-11133-38a522f2.mongo.ondigitalocean.com/CuentiX?authSource=admin&replicaSet=db-mongodb-nyc1-11133&tls=true&tlsCAFile=ca-certificate.crt`, {
         useCreateIndex: true,

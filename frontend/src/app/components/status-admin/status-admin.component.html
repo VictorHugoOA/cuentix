@@ -32,7 +32,7 @@
                                 <p class="font-italic mb-0 small">{{account.accountDetails[0].Descripcion}}</p>
                                 <p class="text-muted mb-0 small">{{account.accountDetails[0].Tipo}} | {{account.accountDetails[0].Plataforma}} | {{account.Fecha}}</p>
                                 <div class="d-flex align-items-center justify-content-between mt-1">
-                                    
+                                                                                                                                             
                                     <select name="Estado" [value]="account.Estado" (change) = "changeStatus($event, account._id)">
                                         <option value="Revision" >Revision</option>
                                         <option value="Verificada">Verificada</option>

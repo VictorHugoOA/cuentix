@@ -109,8 +109,8 @@ router.put("/Insertar/:id_us", async (req, res) => {
 
 //Ver compra de usuario
 router.get("/VerPed/:id_ped", async (req, res) => {
-	const idbuy = req.params.id_buy;
-	compra.aggregate([{$match: {_id: mongoose.Types.ObjectId(dbuy)}},
+	const idbuy = req.params.id_ped;
+	compra.aggregate([{$match: {_id: mongoose.Types.ObjectId(idbuy)}},
 	{
 		$lookup: {
 			from: 'Cuenta',
@@ -164,10 +164,11 @@ router.put("/Cancelar/:id_ped", (req, res) => {
 		.then((doc) => {
 			console.log(doc);
 			cuenta.findByIdAndUpdate(
-				{_id: doc.Id_cuenta},
+				{_id: mongoose.Types.ObjectId(doc.Id_cuenta)},
 				{$set: {Estado: "Disponible"}}
-				)
-			res.json({ response: "compra Modificada" });
+				).then((doc) => {
+					res.json({ response: "compra Modificada" });
+				})
 		})
 		.catch((err) => {
 			console.log("error al cambiar", err.message);

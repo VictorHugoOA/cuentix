@@ -15,6 +15,15 @@ export class ComprasService {
     .pipe(map( (value: any) => value.ped as any[]));
   }
 
+  public cancelarVenta(id: String, idUsuario: String): Promise<any>{
+    return new Promise((resolve, reject) => {
+      this.http.put(`http://localhost:3000/Compras/Cancelar/${id}`, {}).subscribe((response) => {
+        resolve(response);
+        this.router.navigate([`site/buyed-accounts/${idUsuario}`]);
+      })
+    });
+  }
+
   public getCuentasTotales(): Observable<any[]>{
     return this.http.get(`http://localhost:3000/Compras/VerCompraTodos`)
     .pipe(map( (value: any) => value.ped as any[]));

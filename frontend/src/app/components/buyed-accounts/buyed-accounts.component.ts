@@ -16,17 +16,15 @@ export class BuyedAccountsComponent implements OnInit {
               private router: Router) {
     this.idUsuario = this.route.snapshot.paramMap.get('id') as String | "1";
     this.cuentasCompradas = this.buyed.getCuentasCompradasUsuario(this.idUsuario, this.pagina);
-    this.cuentasCompradas.subscribe((val) => {
-      setInterval(() => {
-        console.log(val);
-      }, 1000);
-    })
   }
 
   ngOnInit(): void {
   }
+  clickCancel(id: String){
+    this.buyed.cancelarVenta(id, this.idUsuario);
+  }
   clickSeeBuy(id: String){
-    
+    this.router.navigate([`site/buy-details/${id}`]);
   }
   onScroll(){
     this.pagina += 1;

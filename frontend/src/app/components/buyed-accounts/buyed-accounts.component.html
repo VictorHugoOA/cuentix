@@ -10,7 +10,7 @@
             <div class="status mt-3">
                 <button (click)="clickSeeBuy(compra._id)" class="view-button">Ver</button>
                 <p class="p-alignment py-3">{{compra.Estado}}</p>
-                <button class="view-button big">Cancelar</button>
+                <button (click)="clickCancel(compra._id)" *ngIf="compra.Estado != 'Cancelada' && compra.Estado != 'Vendida' " class="cancel-button">Cancelar</button>
             </div>
         </div>
     </div>

@@ -57,9 +57,9 @@ export class RegistroService {
           (response: any) => {
             sessionStorage.setItem('user', response.id);
             resolve(response);
-            if(response.Admi){
+            if(response.admi === true){
               sessionStorage.setItem('admin', '1');
-              this.router.navigate(['admin/status-accounts']);
+              this.router.navigate(['admin/home']);
               return;
             }
             this.router.navigate(['site/home']);

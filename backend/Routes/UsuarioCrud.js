@@ -12,7 +12,7 @@ const schemaRegister = Joi.object({
     usuario: Joi.string().min(4).max(255).required(),
     email: Joi.string().max(255).required().email(),
     contra: Joi.string().min(2).max(1024).required(),
-    tipo: Joi.string().min(2).max(255).required(),
+    tipo: Joi.string().min(2).max(255).required()
 });
 const schemaLogin = Joi.object({
     usuario: Joi.string().min(6).max(255).required(),
@@ -73,7 +73,7 @@ router.post("/Insertar", async(req, res) => {
         const salt = await bcrypt.genSalt(10);
         const password = await bcrypt.hash(req.body.contra, salt);
 
-        const user = new usuario({
+        const user = new Usuario({
             Usuario: req.body.usuario,
             Contrasena: password,
             Email: req.body.email,
@@ -89,6 +89,7 @@ router.post("/Insertar", async(req, res) => {
             data: savedUser,
         });
     } catch (error) {
+        console.log(error);
         res.status(400).json({ error });
     }
 });

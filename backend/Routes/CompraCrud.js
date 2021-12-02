@@ -126,7 +126,7 @@ router.get("/VerPed/:id_ped", async (req, res) => {
 //Ver todas las pedidos de un usuario
 router.get("/Ver/:id_us", async (req, res) => {
 	const idus = req.params.id_us;
-	compra.aggregate([{ $match: {Id_usuario: idus} },
+	compra.aggregate([{ $match: {Id_usuario: mongoose.Types.ObjectId(idus)} },
 	{
 		$lookup: {
 			from: 'Cuenta',

@@ -42,6 +42,7 @@ export class RegistroService {
 
   public signOut(){
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('admin');
     this.router.navigate(['site/home']);
   }
 
@@ -56,6 +57,11 @@ export class RegistroService {
           (response: any) => {
             sessionStorage.setItem('user', response.id);
             resolve(response);
+            if(response.Admi){
+              sessionStorage.setItem('admin', '1');
+              this.router.navigate(['admin/status-accounts']);
+              return;
+            }
             this.router.navigate(['site/home']);
           },
           (error) => {

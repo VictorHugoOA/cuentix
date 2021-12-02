@@ -19,6 +19,8 @@ import { BuyedAccountsComponent } from './components/buyed-accounts/buyed-accoun
 import { BuyAccountDetailsComponent } from './components/buy-account-details/buy-account-details.component';
 import { StatusAdminComponent } from './components/status-admin/status-admin.component';
 import { ModprofileComponent } from './components/modprofile/modprofile.component';
+import { CuentasCrudComponent } from './components/cuentas-crud/cuentas-crud.component';
+import { SellerPageComponent } from './components/seller-page/seller-page.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ModprofileComponent } from './components/modprofile/modprofile.componen
     BuyedAccountsComponent,
     BuyAccountDetailsComponent,
     StatusAdminComponent,
-    ModprofileComponent
+    ModprofileComponent,
+    CuentasCrudComponent,
+    SellerPageComponent
   ],
   imports: [
     BrowserModule,

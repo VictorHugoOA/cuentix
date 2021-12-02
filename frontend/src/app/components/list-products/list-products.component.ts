@@ -26,6 +26,7 @@ export class ListProductsComponent implements OnInit {
     if("categoria" in state)
       this.categoria = state.categoria;
     this.accountsList = this.accounts.getCatalogo(this.titulo, this.categoria, this.plataforma, this.pagina);
+    this.plataformaForm.setValue(this.plataforma);
   }
   setCategoria(categoria: String){
     this.categoria = categoria;

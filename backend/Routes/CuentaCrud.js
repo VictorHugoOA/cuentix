@@ -22,7 +22,7 @@ router.post("/Insertar", async (req, res) => {
 			Plataforma: req.body.plataforma,
 			Descripcion: req.body.descripcion,
 			Precio: req.body.precio,
-			Estado: req.body.estado,
+			Estado: 'Disponible',
 			Imagen: req.body.imagen,
 		});
 

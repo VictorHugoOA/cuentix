@@ -16,6 +16,11 @@ export class BuyedAccountsComponent implements OnInit {
               private router: Router) {
     this.idUsuario = this.route.snapshot.paramMap.get('id') as String | "1";
     this.cuentasCompradas = this.buyed.getCuentasCompradasUsuario(this.idUsuario, this.pagina);
+    this.cuentasCompradas.subscribe((val) => {
+      setInterval(() => {
+        console.log(val);
+      }, 1000);
+    })
   }
 
   ngOnInit(): void {

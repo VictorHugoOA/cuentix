@@ -1,0 +1,52 @@
+<div class="container">
+    <p class="display-4 offset-md-2">Añadir una cuenta</p>
+    <form class="mt-3 col-md-8 offset-md-2" [formGroup]="cuentaForm" (ngSubmit)="addCuenta()">
+        <div class="form-row mt-3">
+            <div class="col-md-4">
+                <input type="file" #fileInput (change)="onChange(fileInput.files)" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <img [src]="imageUrl" alt="">
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="input-group col-md-12">
+                <span class="input-group-text" for="titulo">Título</span>
+                <input type="text" formControlName="titulo" id="titulo" placeholder="Título de la cuenta..."
+                    class="form-control">
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="input-group col-md-12 align-middle">
+                <span class="input-group-text" for="categoria">Categoria</span>
+                <select class="form-select" id="categoria" formControlName="tipo">
+                    <option value="">Selecciona una categoría</option>
+                    <option value="Redes Sociales">Redes Sociales</option>
+                    <option value="Videojuegos">Videojuegos</option>
+                </select>
+
+                <span class="input-group-text" for="precio">$</span>
+                <input type="text" placeholder="Precio" class="form-control" id="precio" class="form-control"
+                    formControlName="precio">
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="input-group col-md-12">
+                <span class="input-group-text" for="plataforma">Plataforma</span>
+                <input type="text" placeholder="Plataforma de la cuenta..." id="plataforma" class="form-control"
+                    formControlName="plataforma" class="form-control">
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="input-group col-md-12">
+                <span class="input-group-text">Descripción</span>
+                <textarea class="form-control" formControlName="descripcion"></textarea>
+            </div>
+        </div>
+        <div class="form-row my-5">
+            <div class="d-grid col-md-12 mb-5">
+                <button type="submit" class="btn btn-lg btn-primary mb-5">Agregar cuenta</button>
+            </div>
+        </div>
+    </form>
+</div>

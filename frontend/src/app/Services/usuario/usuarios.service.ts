@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
 
@@ -20,6 +20,18 @@ export class UsuariosService {
     return this.http
       .get(`http://localhost:3000/Usuario/Ver/${id}`)
       .pipe(map((val: any) => val.user as any));
+  }
+
+  isUserAdmin(){
+    return sessionStorage.getItem('admin');
+  }
+
+  isUserAVendor(): Observable<any>{
+    const idUser = sessionStorage.getItem('user');
+    if(idUser){
+      return this.http.get(`http://localhost:3000/Usuario/EsVendedor/${idUser}`);
+    }
+    return of();
   }
 
   modUsuario(id: String, usuario: User): Promise<any> {

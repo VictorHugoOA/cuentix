@@ -12,6 +12,7 @@ export class BuyAccountDetailsComponent implements OnInit {
 
   public id: String;
   public buyAccount: Observable<any>;
+
   constructor(private router: ActivatedRoute, private buys: ComprasService) {
     this.id = this.router.snapshot.paramMap.get('id') as String | "";
     this.buyAccount = this.buys.getCompra(this.id);

@@ -1,12 +1,3 @@
-<!-- Preloader -->
-<div class="preloader">
-    <div class="preloader-inner">
-        <div class="preloader-icon">
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</div>
 <!-- End Preloader -->
 <!-- Header -->
 <header class="header shop">
@@ -42,8 +33,8 @@
                     <div class="search-bar-top">
                         <div class="search-bar">
                             <form>
-                                <input name="search" placeholder="Busca algo en especifico..." type="search" />
-                                <button class="btnn"><i class="ti-search"></i></button>
+                                <input #title (keydown.enter)="doSearch(title.value)" name="search" placeholder="Busca algo en especifico..." type="search" />
+                                <button class="btnn" (click)="doSearch(title.value)"><i class="ti-search"></i></button>
                             </form>
                         </div>
                     </div>
@@ -76,19 +67,18 @@
                     <div class="col-lg-3">
                         <div class="all-category">
                             <h3 class="cat-heading">
-                                <i class="fa fa-bars" aria-hidden="true"></i>CATEGORIAS
+                                <i class="fa fa-bars" aria-hidden="true"></i>PLATAFORMAS
                             </h3>
                             <ul class="main-category">
-                                <li><a href="#">Más vendidos</a></li>
-                                <li><a href="#">Facebook</a></li>
-                                <li><a href="#">Instagram</a></li>
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="#">Twitch</a></li>
-                                <li><a href="#">League of Legends</a></li>
-                                <li><a href="#">CS: GO</a></li>
-                                <li><a href="#">PUBG</a></li>
-                                <li><a href="#">Free Fire</a></li>
-                                <li><a href="#">WoW</a></li>
+                                <li><a routerLink="/site/products" [state]="{plataforma: 'Facebook'}">Facebook</a></li>
+                                <li><a routerLink="/site/products" [state]="{plataforma: 'Instagram'}">Instagram</a></li>
+                                <li><a routerLink="/site/products" [state]="{plataforma: 'Twitter'}">Twitter</a></li>
+                                <li><a routerLink="/site/products" [state]="{plataforma: 'Twitch'}">Twitch</a></li>
+                                <li><a routerLink="/site/products" [state]="{plataforma: 'League of Legends'}">League of Legends</a></li>
+                                <li><a routerLink="/site/products" [state]="{plataforma: 'CS: GO'}">CS: GO</a></li>
+                                <li><a routerLink="/site/products" [state]="{plataforma: 'PUBG'}">PUBG</a></li>
+                                <li><a routerLink="/site/products" [state]="{plataforma: 'Free Fire'}">Free Fire</a></li>
+                                <li><a routerLink="/site/products" [state]="{plataforma: 'World of Warcraft'}">WoW</a></li>
                             </ul>
                         </div>
                     </div>
@@ -99,16 +89,15 @@
                                 <div class="navbar-collapse">
                                     <div class="nav-inner">
                                         <ul class="nav main-menu menu navbar-nav">
-                                            <li class="active"><a href="#">Home</a></li>
+                                            <li  (click)="clickHome()"><a>Home</a></li>
                                             <li>
-                                                <a href="#">Cuentas<i class="ti-angle-down"></i></a>
+                                                <a routerLink="/site/products">Cuentas<i class="ti-angle-down"></i></a>
                                                 <ul class="dropdown">
-                                                    <li><a href="#">Video juegos</a></li>
-                                                    <li><a href="#">Redes sociales</a></li>
+                                                    <li><a routerLink="/site/products" [state]="{categoria: 'Videojuegos'}">Video juegos</a></li>
+                                                    <li><a routerLink="/site/products" [state]="{categoria: 'Redes Sociales'}">Redes sociales</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Servicio</a></li>
-                                            <li><a href="#">Contactanos</a></li>
+                                            <li (click)="clickSeller()"><a *ngIf="isSeller">Vender cuentas</a></li>
                                         </ul>
                                     </div>
                                 </div>

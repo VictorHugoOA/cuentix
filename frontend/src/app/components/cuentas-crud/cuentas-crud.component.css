@@ -1,0 +1,60 @@
+span {
+    vertical-align: -webkit-baseline-middle;
+}
+.input-group-text{
+    text-align: center;
+    border: 1px solid #ced4da;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #212529;
+    background-color: #e9ecef;
+    font-size: 1rem;
+    align-items: center;
+    display: flex;
+    font-weight: 400;
+    white-space: nowrap;
+}
+div > .input-group-text:first-child{
+    border-radius: 5px 0px 0px 5px;
+}
+.form-select{
+    display: block;
+    width: 1%;
+    flex: 1 1 auto;
+    min-width: 0;
+    position: relative;
+}
+.input-group{
+    display: flex;
+    flex-direction: row;
+}
+img{
+    object-fit: cover;
+    object-position: center;
+    max-width: 480px;
+    max-height: 480px;
+    height: auto;
+}
+textarea.form-control{
+    flex: 1 1 auto;
+    position: relative;
+    resize: none;
+    min-width: 0;
+    width: 1%;
+}
+#precio{
+    text-align: end;
+}
+button{
+    border-radius: 10px;
+}
+button:hover{
+    background-color: rgb(13, 110, 253);
+}
+button:checked{
+    background-color: rgb(13, 110, 253);
+}
+.d-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+}

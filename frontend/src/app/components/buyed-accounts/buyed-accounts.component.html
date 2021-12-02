@@ -1,15 +1,16 @@
-<div class="product-list" *ngIf="(cuentasCompradas | async) as listaCuentas; else noAccounts" infiniteScroll
+<div class="product-list" *ngIf="(cuentasCompradas | async); else noAccounts" infiniteScroll
     (scrolled)="onScroll()" (scrolledUp)="onScrollUp()">
     <h1 class="align-center">Cuentas compradas</h1>
     <div class="product-container">
-        <div class="card" *ngFor="let compra of listaCuentas">
-            <a class="title">{{compra.accountDetails.Titulo}}</a>
+        <div class="card" *ngFor="let compra of cuentasCompradas | async">
+            <a class="title">{{compra.accountDetails[0].Titulo}}</a>
             <div class="image">
-                <img [src]="compra.accountDetails.Imagen" alt="" />
+                <img src="http://localhost:3000/Cuenta/Imagen/{{compra.accountDetails[0].Imagen}}" alt="" />
             </div>
-            <div class="status">
+            <div class="status mt-3">
                 <button (click)="clickSeeBuy(compra._id)" class="view-button">Ver</button>
-                <p>{{compra.Estado}}</p>
+                <p class="p-alignment py-3">{{compra.Estado}}</p>
+                <button class="view-button big">Cancelar</button>
             </div>
         </div>
     </div>

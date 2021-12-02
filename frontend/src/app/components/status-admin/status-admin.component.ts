@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ComprasService } from 'src/app/services/compras/compras.service';
 import { CuentasService } from 'src/app/services/cuentas/cuentas.service';
+import { UsuariosService } from 'src/app/Services/usuario/usuarios.service';
 
 @Component({
   selector: 'app-status-admin',
@@ -16,7 +17,10 @@ public plataforma: String = "";
 public titulo: String = "";
 public categoria: String = "";
 public pagina: number = 1;
-constructor(private accounts: ComprasService, private route: Router) {
+constructor(private accounts: ComprasService, private route: Router, private users: UsuariosService) {
+  if(!this.users.isUserAdmin()){
+    this.route.navigate(['site/home']);
+  }
   let state = {...this.route.getCurrentNavigation()?.extras.state};
   if("plataforma" in state)
     this.plataforma = state.plataforma;

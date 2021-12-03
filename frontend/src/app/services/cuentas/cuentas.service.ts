@@ -10,8 +10,8 @@ import { map } from 'rxjs/operators';
 export class CuentasService {
 
   constructor(private http: HttpClient, private router: Router) {
-
   }
+  
   public getCatalogo(titulo: String, categoria: String, plataforma: String, pagina: Number): Observable<any[]>{
     return this.http.get(`http://localhost:3000/Cuenta/VerTodos?titulo=${titulo}&tipo=${categoria}&plataforma=${plataforma}&pagina=${pagina}`)
     .pipe(map( (value: any) => value.accounts as any[]));

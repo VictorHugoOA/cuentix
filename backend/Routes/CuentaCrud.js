@@ -105,6 +105,14 @@ router.get("/VerTodos", async (req, res) => {
 	})
 });
 
+router.get("/CuentasVendedor/:id", async (req, res) => {
+	const idSeller = req.params.id;
+	cuenta.find({Id_vendedor: mongoose.Types.ObjectId(idSeller)})
+	.then((doc) => {
+		res.json({accounts: doc, error: null});
+	})
+})
+
 //Ver filtrar cuentas por precio
 router.get("/FiltrarPrecio", async (req, res) => {
 

@@ -47,10 +47,18 @@ export class NavBarComponent implements OnInit {
     return seller;
   }
 
+  clickSellerAccounts(){
+    const sessionId = this.registro.getSessionID();
+    if(sessionId){
+      this.router.navigate([`site/seller/accounts/${sessionId}`]);
+      return;
+    }
+    this.router.navigate(['site/home']);
+  }
+
   clickSeller(){
     const sessionId = this.registro.getSessionID();
     if(sessionId){
-      console.log(sessionId);
       this.router.navigate([`site/seller/account/${sessionId}`]);
       return;
     }

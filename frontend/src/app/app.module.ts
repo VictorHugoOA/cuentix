@@ -21,6 +21,7 @@ import { StatusAdminComponent } from './components/status-admin/status-admin.com
 import { ModprofileComponent } from './components/modprofile/modprofile.component';
 import { CuentasCrudComponent } from './components/cuentas-crud/cuentas-crud.component';
 import { SellerPageComponent } from './components/seller-page/seller-page.component';
+import { SellerAccountsComponent } from './components/seller-accounts/seller-accounts.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SellerPageComponent } from './components/seller-page/seller-page.compon
     StatusAdminComponent,
     ModprofileComponent,
     CuentasCrudComponent,
-    SellerPageComponent
+    SellerPageComponent,
+    SellerAccountsComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SellerAccountsComponent } from './components/seller-accounts/seller-accounts.component';
 import { SellerPageComponent } from './components/seller-page/seller-page.component';
 import { StatusAdminComponent } from './components/status-admin/status-admin.component';
 
@@ -29,7 +30,8 @@ const routes: Routes = [
       { path: 'buy-details/:id', component: BuyAccountDetailsComponent},
       {
         path: 'seller', component: SellerPageComponent, children: [
-          { path: 'account/:id', component: CuentasCrudComponent}
+          { path: 'account/:id', component: CuentasCrudComponent},
+          {path: 'accounts/:id', component: SellerAccountsComponent}
         ]
       }
     ],

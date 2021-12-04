@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 */
 //conexion
 mongoose
-    .connect(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@db-mongodb-nyc1-11133-38a522f2.mongo.ondigitalocean.com/CuentiX?authSource=admin&replicaSet=db-mongodb-nyc1-11133&tls=true&tlsCAFile=ca-certificate.crt`, {
+    .connect(`mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@db-mongodb-nyc1-11133-38a522f2.mongo.ondigitalocean.com/CuentiX?authSource=admin&tls=true&tlsCAFile=ca-certificate.crt`, {
         useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true,

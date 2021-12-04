@@ -146,14 +146,14 @@ router.get("/Ver/:id", async(req, res) => {
         });
     }
 });
-router.get('/EsVendedor/:id', async (req, res) => {
-    const userId = req.params.id;
-    Usuario.find({_id: userId}).then((doc) => {
-        console.log(doc);
-        res.send({seller: doc[0].Tipo === 'Vendedor'});
+router.get('/EsVendedor/:id', async(req, res) => {
+        const userId = req.params.id;
+        Usuario.find({ _id: userId }).then((doc) => {
+            console.log(doc);
+            res.send({ seller: doc[0].Tipo === 'Vendedor' });
+        })
     })
-})
-//Modificar usuario
+    //Modificar usuario
 router.put("/Modificar/:id", async(req, res) => {
     const id = req.params.id;
     const user = req.body.usuario;

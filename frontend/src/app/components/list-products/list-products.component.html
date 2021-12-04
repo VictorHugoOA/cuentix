@@ -4,23 +4,17 @@
             <h1 class="align-center">Filtros</h1>
             <div class="input-group justify-content-center mb-3">
                 <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off">
-                <label for="option1" class="btn btn-outline-primary align-middle"
-                    (click)="setCategoria('Redes Sociales')">Redes Sociales</label>
+                <label for="option1" class="btn btn-outline-primary align-middle" (click)="setCategoria('Redes Sociales')">Redes Sociales</label>
                 <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
-                <label for="option2" class="btn btn-outline-primary align-middle"
-                    (click)="setCategoria('Videojuegos')">Videojuegos</label>
+                <label for="option2" class="btn btn-outline-primary align-middle" (click)="setCategoria('Videojuegos')">Videojuegos</label>
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" #plat placeholder="Buscar plataforma..." aria-label="Plataforma"
-                    aria-describedby="basic-addon1" [formControl]="plataformaForm">
+                <input type="text" class="form-control" #plat placeholder="Buscar plataforma..." aria-label="Plataforma" aria-describedby="basic-addon1" [formControl]="plataformaForm">
                 <button class="btn btn-primary" (click)="setPlataforma()">Buscar</button>
             </div>
         </div>
     </div>
-    <div class="scrollable"
-        infiniteScroll
-        (scrolled)="onScroll()"
-        (scroleldUp)="onScrollUp()">
+    <div class="scrollable" infiniteScroll (scrolled)="onScroll()" (scroleldUp)="onScrollUp()">
         <div class="row">
             <div class="col-lg-12 col-sm-8 mx-auto">
                 <h1 class="align-center">Cuentas</h1>
@@ -32,8 +26,8 @@
                                 <p class="font-italic mb-0 small">{{account.Descripcion}}</p>
                                 <p class="text-muted mb-0 small">{{account.Tipo}} | {{account.Plataforma}}</p>
                                 <div class="d-flex align-items-center justify-content-between mt-1">
-                                    <h6 class="font-weight-bold my-2">{{account.Precio |
-                                        currency:'MXN':'symbol':'1.2-2'}}</h6>
+                                    <h6 class="font-weight-bold my-2">{{account.Precio | currency:'MXN':'symbol':'1.2-2'}}
+                                    </h6>
                                 </div>
                             </div>
                             <img src='http://localhost:3000/Cuenta/Imagen/{{account.Imagen}}' alt="" class="ml-lg-5 order-1 order-lg-2">

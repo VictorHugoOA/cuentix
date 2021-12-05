@@ -1,0 +1,19 @@
+.fas {
+    margin: 15px;
+}
+
+.fa-edit {
+    color: rgb(67, 67, 211);
+}
+
+.fa-trash-alt {
+    color: rgb(211, 76, 76);
+}
+
+.fa-edit:hover {
+    cursor: pointer;
+}
+
+.fa-trash-alt:hover {
+    cursor: pointer;
+}

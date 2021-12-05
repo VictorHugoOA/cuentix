@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { SellerAccountsComponent } from './components/seller-accounts/seller-accounts.component';
 import { SellerPageComponent } from './components/seller-page/seller-page.component';
 import { StatusAdminComponent } from './components/status-admin/status-admin.component';
+import { EditarCuentaComponent } from './components/editar-cuenta/editar-cuenta.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'site/home' },
@@ -28,9 +29,11 @@ const routes: Routes = [
       { path: 'modprofile/:id', component: ModprofileComponent },
       { path: 'buyed-accounts/:id', component: BuyedAccountsComponent },
       { path: 'buy-details/:id', component: BuyAccountDetailsComponent},
+      { path: 'edit-account/:id', component: EditarCuentaComponent},
       {
         path: 'seller', component: SellerPageComponent, children: [
           { path: 'account/:id', component: CuentasCrudComponent},
+          
           {path: 'accounts/:id', component: SellerAccountsComponent}
         ]
       }

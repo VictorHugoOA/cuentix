@@ -22,6 +22,7 @@ import { ModprofileComponent } from './components/modprofile/modprofile.componen
 import { CuentasCrudComponent } from './components/cuentas-crud/cuentas-crud.component';
 import { SellerPageComponent } from './components/seller-page/seller-page.component';
 import { SellerAccountsComponent } from './components/seller-accounts/seller-accounts.component';
+import { EditarCuentaComponent } from './components/editar-cuenta/editar-cuenta.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SellerAccountsComponent } from './components/seller-accounts/seller-acc
     ModprofileComponent,
     CuentasCrudComponent,
     SellerPageComponent,
-    SellerAccountsComponent
+    SellerAccountsComponent,
+    EditarCuentaComponent
   ],
   imports: [
     BrowserModule,

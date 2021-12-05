@@ -29,12 +29,13 @@
                                     <h6 class="font-weight-bold my-2">{{account.Precio | currency:'MXN':'symbol':'1.2-2'}}
                                     </h6>
                                 </div>
+                                <div>
+                                    <i class="fas fa-edit fa-2x" (click)="modificar(account._id)"></i>
+                                    <!-- [routerLink]="['edit-account/', account._id] -->
+                                    <i class="fas fa-trash-alt fa-2x" (click)="eliminarCuenta(account._id)"></i>
+                                </div>
                             </div>
                             <img src='http://localhost:3000/Cuenta/Imagen/{{account.Imagen}}' alt="" class="ml-lg-5 order-1 order-lg-2">
-                            <div>
-                                <i class="fas fa-edit"></i>
-                                <i class="fas fa-trash-alt"></i>
-                            </div>
                         </div>
                     </li>
                 </ul>

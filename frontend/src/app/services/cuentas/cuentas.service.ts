@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Cuenta } from 'src/app/models/Cuenta/cuenta';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,33 @@ export class CuentasService {
         this.router.navigate(['site/home']);
       })
     })
+  }
+
+  public elimCuenta(id: String): Observable<any>{
+    return this.http.get(`http://localhost:3000/Cuenta/Eliminar/${id}`);
+  }
+
+  public editAccount(id: String, cuenta: Cuenta): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.put(`http://localhost:3000/Cuenta/Modificar/${id}`, {
+          titu: cuenta.titulo,
+          vendedor: cuenta.vendedor,
+          tipo: cuenta.tipo,
+          plataforma: cuenta.plataforma,
+          desc: cuenta.descripcion,
+          pre: cuenta.precio,
+          imag: cuenta.imagen
+        })
+        .subscribe(
+          (response) => {
+            resolve(response);
+            this.router.navigate([`seller/account/${id}`]);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    });
   }
 
 }

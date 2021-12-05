@@ -1,8 +1,10 @@
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CuentasService } from 'src/app/services/cuentas/cuentas.service';
+import { UsuariosService } from 'src/app/services/usuario/usuarios.service';
 
 @Component({
   selector: 'app-cuentas-crud',
@@ -14,13 +16,22 @@ export class CuentasCrudComponent implements OnInit {
   public imageUrl: String | ArrayBuffer | null = "https://bulma.io/images/placeholders/480x480.png";
   public file: File | null;
   public idSeller: String | null;
-  constructor(private fb: FormBuilder,
-              private toastr: ToastrService,
-              private cuentas: CuentasService,
-              private route: ActivatedRoute,
-              private router: Router) {
+  public usuario: any;
+
+  title = "Cuenta";
+
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private cuentas: CuentasService,
+    private route: ActivatedRoute,
+    private Usuario: UsuariosService,
+    private router: Router
+  ) {
     this.idSeller = this.route.snapshot.paramMap.get('id') as String;
+    
     const numRegex = /^[1-9]\d*(\.\d+)?$/
+    
     this.cuentaForm = this.fb.group({
       titulo: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
       tipo: ['', [Validators.required]],
@@ -28,7 +39,8 @@ export class CuentasCrudComponent implements OnInit {
       descripcion: ['', [Validators.required]],
       precio: [0, [Validators.required, Validators.min(0), Validators.pattern(numRegex)]],
       imagen: ['', Validators.required]
-    })
+    });
+
     this.file = null;
   }
 
@@ -102,5 +114,4 @@ export class CuentasCrudComponent implements OnInit {
     }
     this.router.navigate(['login']);
   }
-
 }

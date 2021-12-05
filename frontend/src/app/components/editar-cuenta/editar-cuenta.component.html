@@ -1,6 +1,6 @@
 <div class="container">
     <p class="display-4 offset-md-2">{{ title }}</p>
-    <form class="mt-3 col-md-8 offset-md-2" [formGroup]="cuentaForm" (ngSubmit)="addCuenta()">
+    <form class="mt-3 col-md-8 offset-md-2" [formGroup]="cuentaForm" (ngSubmit)="editCuenta()">
         <div class="form-row mt-3">
             <div class="col-md-4">
                 <input type="file" #fileInput (change)="onChange(fileInput.files)" class="form-control">
@@ -42,7 +42,7 @@
         </div>
         <div class="form-row my-5">
             <div class="d-grid col-md-12 mb-5">
-                <button type="submit" class="btn btn-lg btn-primary mb-5">Agregar cuenta</button>
+                <button type="submit" class="btn btn-lg btn-primary mb-5">Actualizar cuenta</button>
             </div>
         </div>
     </form>

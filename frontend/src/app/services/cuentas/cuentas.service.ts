@@ -53,18 +53,18 @@ export class CuentasService {
   public editAccount(id: String, cuenta: Cuenta): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.put(`http://localhost:3000/Cuenta/Modificar/${id}`, {
-          titu: cuenta.titulo,
+          titulo: cuenta.titulo,
           vendedor: cuenta.vendedor,
           tipo: cuenta.tipo,
           plataforma: cuenta.plataforma,
           desc: cuenta.descripcion,
-          pre: cuenta.precio,
-          imag: cuenta.imagen
+          precio: cuenta.precio,
+          imagen: cuenta.imagen
         })
         .subscribe(
           (response) => {
             resolve(response);
-            this.router.navigate([`seller/account/${id}`]);
+            this.router.navigate([`site/home/`]);
           },
           (error) => {
             console.log(error);

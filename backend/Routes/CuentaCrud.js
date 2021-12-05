@@ -12,116 +12,117 @@ const upload = multer({ dest: process.cwd() + '/uploads/images' });
 const Joi = require('@hapi/joi');
 
 //Añadir Cuenta
-router.post("/Insertar", async (req, res) => {
-	try {
+router.post("/Insertar", async(req, res) => {
+    try {
 
-		const account = new cuenta({
-			Titulo: req.body.titulo,
-			Id_vendedor: mongoose.Types.ObjectId(req.body.vendedor),
-			Tipo: req.body.tipo,
-			Plataforma: req.body.plataforma,
-			Descripcion: req.body.descripcion,
-			Precio: req.body.precio,
-			Estado: 'Disponible',
-			Imagen: req.body.imagen,
-		});
+        const account = new cuenta({
+            Titulo: req.body.titulo,
+            Id_vendedor: mongoose.Types.ObjectId(req.body.vendedor),
+            Tipo: req.body.tipo,
+            Plataforma: req.body.plataforma,
+            Descripcion: req.body.descripcion,
+            Precio: req.body.precio,
+            Estado: 'Disponible',
+            Imagen: req.body.imagen,
+        });
 
-		const savedAccount = await account.save();
-		res.json({
-			error: null,
-			response: "Añadido",
-			data: savedAccount
+        const savedAccount = await account.save();
+        res.json({
+            error: null,
+            response: "Añadido",
+            data: savedAccount
 
-		})
-		console.log(savedAccount)
+        })
+        console.log(savedAccount)
 
-	} catch (error) {
-		console.log(error.message)
-		res.status(400).json({ error })
-	}
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({ error })
+    }
 
 });
 
 //Ver cuenta
-router.get("/Ver/:id", async (req, res) => {
-	const id = req.params.id;
-	cuenta.aggregate([{$match: {_id: mongoose.Types.ObjectId(id)}},
-	{
-		$lookup: {
-			from: "Usuario",
-			localField: "Id_vendedor",
-			foreignField: '_id',
-			as: 'vendedor'
-		}
-	}]).then((doc) => {
-		res.json({data: doc, error: null});
-	});
+router.get("/Ver/:id", async(req, res) => {
+    const id = req.params.id;
+    cuenta.aggregate([{ $match: { _id: mongoose.Types.ObjectId(id) } },
+        {
+            $lookup: {
+                from: "Usuario",
+                localField: "Id_vendedor",
+                foreignField: '_id',
+                as: 'vendedor'
+            }
+        }
+    ]).then((doc) => {
+        res.json({ data: doc, error: null });
+    });
 });
 
 //Ver cuentas por tipo
-router.get("/VerTipo/:tipo", async (req, res) => {
-	const tipo = req.params.tipo;
-	cuenta.find({ Tipo: tipo }).then((doc) => {
-		res.json({ data: doc, error: null });
-	})
+router.get("/VerTipo/:tipo", async(req, res) => {
+    const tipo = req.params.tipo;
+    cuenta.find({ Tipo: tipo }).then((doc) => {
+        res.json({ data: doc, error: null });
+    })
 });
 
 //Ver cuentas por plataforma
-router.get("/VerPlataforma/:plataforma", async (req, res) => {
-	const plataforma = req.params.plataforma;
-	cuenta.find({ Plataforma: plataforma }).then((doc) => {
-		res.json({ data: doc, error: null });
-	})
+router.get("/VerPlataforma/:plataforma", async(req, res) => {
+    const plataforma = req.params.plataforma;
+    cuenta.find({ Plataforma: plataforma }).then((doc) => {
+        res.json({ data: doc, error: null });
+    })
 });
 
 //Ver todas las cuentas
-router.get("/VerTodos", async (req, res) => {
-	let makeSearch = {
-		Estado: "Disponible"
-	};
-	if("plataforma" in req.query){
-		makeSearch = {
-			Plataforma: {$regex: req.query.plataforma, $options: 'i'},
-			...makeSearch
-		}
-	}
+router.get("/VerTodos", async(req, res) => {
+    let makeSearch = {
+        Estado: "Disponible"
+    };
+    if ("plataforma" in req.query) {
+        makeSearch = {
+            Plataforma: { $regex: req.query.plataforma, $options: 'i' },
+            ...makeSearch
+        }
+    }
 
-	if("tipo" in req.query){
-		makeSearch = {
-			Tipo: {$regex: req.query.tipo, $options: 'i'},
-			...makeSearch
-		}
-	}
+    if ("tipo" in req.query) {
+        makeSearch = {
+            Tipo: { $regex: req.query.tipo, $options: 'i' },
+            ...makeSearch
+        }
+    }
 
-	if("titulo" in req.query){
-		makeSearch= {
-			Titulo: {$regex: req.query.titulo, $options: 'i'},
-			...makeSearch
-		}
-	}
+    if ("titulo" in req.query) {
+        makeSearch = {
+            Titulo: { $regex: req.query.titulo, $options: 'i' },
+            ...makeSearch
+        }
+    }
 
-	cuenta.find(makeSearch).limit(req.query.pagina*25).then((doc) => {
-		res.json({ accounts: doc, error: null });
-	})
+    cuenta.find(makeSearch).limit(req.query.pagina * 25).then((doc) => {
+        res.json({ accounts: doc, error: null });
+    })
 });
 
-router.get("/CuentasVendedor/:id", async (req, res) => {
-	const idSeller = req.params.id;
-	cuenta.find({Id_vendedor: mongoose.Types.ObjectId(idSeller)})
-	.then((doc) => {
-		res.json({accounts: doc, error: null});
-	})
+router.get("/CuentasVendedor/:id", async(req, res) => {
+    const idSeller = req.params.id;
+    cuenta.find({ Id_vendedor: mongoose.Types.ObjectId(idSeller) })
+        .then((doc) => {
+            res.json({ accounts: doc, error: null });
+        })
 })
 
 //Ver filtrar cuentas por precio
-router.get("/FiltrarPrecio", async (req, res) => {
+router.get("/FiltrarPrecio", async(req, res) => {
 
-	const MinVal = req.query.min;
-	const MaxVal = req.query.max;
+    const MinVal = req.query.min;
+    const MaxVal = req.query.max;
 
-	cuenta.find({ $and: [{ Precio: { $gte: MinVal } }, { Precio: { $lte: MaxVal } }] }).then((doc) => {
-		res.json({ lib: doc, error: null });
-	})
+    cuenta.find({ $and: [{ Precio: { $gte: MinVal } }, { Precio: { $lte: MaxVal } }] }).then((doc) => {
+        res.json({ lib: doc, error: null });
+    })
 
 });
 
@@ -138,122 +139,114 @@ router.get("/VerMasVendidos", async (req, res) => {
 */
 
 //Buscar libros
-router.get("/Buscar", async (req, res) => {
-	if (Object.keys(req.query).length != 0) {
-		if (req.query.name !== undefined) {
-			const Search = req.query.name;
+router.get("/Buscar", async(req, res) => {
+    if (Object.keys(req.query).length != 0) {
+        if (req.query.name !== undefined) {
+            const Search = req.query.name;
 
-			if (
-				(req.query.min !== undefined && req.query.min !== "") &&
-				(req.query.max !== undefined && req.query.max !== "")
-			) {
+            if (
+                (req.query.min !== undefined && req.query.min !== "") &&
+                (req.query.max !== undefined && req.query.max !== "")
+            ) {
 
-				const MinVal = req.query.min;
-				const MaxVal = req.query.max;
+                const MinVal = req.query.min;
+                const MaxVal = req.query.max;
 
-				cuenta.find({
-					$and:
-						[
-							{
-								$or: [
-									{ Titulo: { $regex: `${Search}`, $options: 'i' } }]
-							},
-							{ Precio: { $gte: MinVal } },
-							{ Precio: { $lte: MaxVal } }]
-				})
-					.then((doc) => {
-						res.json({ lib: doc, error: null });
-					});
-			}
-			else {
-				cuenta.find({ $or: [{ Titulo: { $regex: `${Search}`, $options: 'i' } }, { Autor: { $regex: `${Search}`, $options: 'i' } }] })
-					.then((doc) => {
-						res.json({ lib: doc, error: null });
-					});
-			}
-		}
-		else {
-			if (
-				(req.query.min !== undefined || req.query.min !== "") &&
-				(req.query.max !== undefined || req.query.max !== "")
-			) {
-				const MinVal = req.query.min;
-				const MaxVal = req.query.max;
-				cuenta.find({ $and: [{ Precio: { $gte: MinVal } }, { Precio: { $lte: MaxVal } }] }).then((doc) => {
-					res.json({ lib: doc, error: null });
-				})
-			}
-			else {
-				cuenta.find({ $or: [{ Titulo: { $regex: `${Search}`, $options: 'i' } }, { Autor: { $regex: `${Search}`, $options: 'i' } }] })
-					.then((doc) => {
-						res.json({ lib: doc, error: null });
-					});
-			}
-		}
-	}
-	else {
-		cuenta.find({}).then((doc) => {
-			res.json({ lib: doc, error: null });
-		})
-	}
+                cuenta.find({
+                        $and: [{
+                                $or: [
+                                    { Titulo: { $regex: `${Search}`, $options: 'i' } }
+                                ]
+                            },
+                            { Precio: { $gte: MinVal } },
+                            { Precio: { $lte: MaxVal } }
+                        ]
+                    })
+                    .then((doc) => {
+                        res.json({ lib: doc, error: null });
+                    });
+            } else {
+                cuenta.find({ $or: [{ Titulo: { $regex: `${Search}`, $options: 'i' } }, { Autor: { $regex: `${Search}`, $options: 'i' } }] })
+                    .then((doc) => {
+                        res.json({ lib: doc, error: null });
+                    });
+            }
+        } else {
+            if (
+                (req.query.min !== undefined || req.query.min !== "") &&
+                (req.query.max !== undefined || req.query.max !== "")
+            ) {
+                const MinVal = req.query.min;
+                const MaxVal = req.query.max;
+                cuenta.find({ $and: [{ Precio: { $gte: MinVal } }, { Precio: { $lte: MaxVal } }] }).then((doc) => {
+                    res.json({ lib: doc, error: null });
+                })
+            } else {
+                cuenta.find({ $or: [{ Titulo: { $regex: `${Search}`, $options: 'i' } }, { Autor: { $regex: `${Search}`, $options: 'i' } }] })
+                    .then((doc) => {
+                        res.json({ lib: doc, error: null });
+                    });
+            }
+        }
+    } else {
+        cuenta.find({}).then((doc) => {
+            res.json({ lib: doc, error: null });
+        })
+    }
 });
 
 //Modificar libro
 router.put("/Modificar/:id", (req, res) => {
 
-	const id = req.params.id;
-	const titu = req.body.titulo;
-	const pre = req.body.precio;
-	const imag = req.body.imagen;
-	const estado = req.body.estado;
-	const desc = req.body.desc;
-	const tipo = req.body.tipo;
-	const plataforma = req.body.plataforma;
+    const id = req.params.id;
+    const titu = req.body.titulo;
+    const pre = req.body.precio;
+    const imag = req.body.imagen;
+    const estado = req.body.estado;
+    const desc = req.body.desc;
+    const tipo = req.body.tipo;
+    const plataforma = req.body.plataforma;
 
-	cuenta.findByIdAndUpdate(
-		{ _id: id },
-		{
-			$set: {
-				Titulo: titu,
-				Precio: pre,
-				Tipo: tipo,
-				Plataforma: plataforma,
-				Estado: estado,
-				Descripcion: desc,
-				Imagen, imag
-			}
-		}
-	)
-		.then((doc) => {
-			res.json({ response: "Cuenta Modificada" });
-		})
-		.catch((err) => {
-			console.log("error al cambiar", err.message);
-			res.status(400).json({ error: err.message });
-		});
+    cuenta.findByIdAndUpdate({ _id: id }, {
+            $set: {
+                Titulo: titu,
+                Precio: pre,
+                Tipo: tipo,
+                Plataforma: plataforma,
+                Estado: estado,
+                Descripcion: desc
+                    //Imagen: imag
+            }
+        })
+        .then((doc) => {
+            res.json({ response: "Cuenta Modificada" });
+        })
+        .catch((err) => {
+            console.log("error al cambiar", err.message);
+            res.status(400).json({ error: err.message });
+        });
 });
 
 //Eliminar libro
 router.get("/Eliminar/:id", (req, res) => {
-	const id = req.params.id;
-	cuenta.findByIdAndDelete({ _id: id })
-		.then((doc) => {
-			res.json({ response: "Cuenta eliminada" });
-		})
-		.catch((err) => {
-			console.log("error al cambiar", err.message);
-		});
+    const id = req.params.id;
+    cuenta.findByIdAndDelete({ _id: id })
+        .then((doc) => {
+            res.json({ response: "Cuenta eliminada" });
+        })
+        .catch((err) => {
+            console.log("error al cambiar", err.message);
+        });
 });
 //Es una función a parte
 //Esta es la función para subir imagenes al servidor
 // la función upload.single('photo') se encarga de subir la foto, de la variable llamada photo
 router.post('/SubirImagen', upload.single('photo'), (req, res) => {
-	if (req.file) { // Si se mando el archivo
-		res.json(req.file); // se regresa una respuesta de verificación con la ruta o nombre del archivo
-	}
-	else { // si no se regresa una respuesta con error al cliente
-		res.status(400).json({ error: "No se pudo subir el archivo" });
-	}
+    if (req.file) { // Si se mando el archivo
+        res.json(req.file); // se regresa una respuesta de verificación con la ruta o nombre del archivo
+    } else { // si no se regresa una respuesta con error al cliente
+        res.status(400).json({ error: "No se pudo subir el archivo" });
+    }
 });
 // esta es la ruta para mostrar las imagenes
 router.use('/Imagen', express.static(process.cwd() + '/uploads/images'));

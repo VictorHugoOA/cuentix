@@ -55,8 +55,8 @@ export class EditarCuentaComponent implements OnInit {
           tipo: val.tipo,
           plataforma: val.plataforma,
           descripcion: val.descripcion,
-          precio: val.precio,
-          imagen: val.imagen
+          precio: val.precio
+          //imagen: val.imagen
       });
     });
   }
@@ -94,17 +94,63 @@ export class EditarCuentaComponent implements OnInit {
   }
 
   editCuenta(){
+    console.log("entre a la funcion");
     if(this.cuentaForm.valid){
+      console.log("entre al if");
       const cuentaModel = new Cuenta(
         this.cuentaForm.get('titulo')?.value,
-        this.cuentaForm.get('vendedor')?.value,
+        '',
         this.cuentaForm.get('tipo')?.value,
         this.cuentaForm.get('plataforma')?.value,
         this.cuentaForm.get('descripcion')?.value,
         this.cuentaForm.get('precio')?.value,
-        this.cuentaForm.get('imagen')?.value
+        this.cuentaForm.get('img')?.value,
       );
+      console.log("termine cuentaModel");
       this.Cuentas.editAccount(this.id, cuentaModel);
+      console.log("regrese de actualizar");
     }
+    const invalid: String[] = this.findInvalidControls();
+    invalid.forEach((value) => {
+      switch (value) {
+        case 'titulo':
+          this.toastr.error(
+            'El titulo debe tener entre 6 y 255 caractéres',
+            'Error actualizando cuenta'
+          );
+          break;
+        case 'tipo':
+          this.toastr.error(
+            'Debes ingresar el tipo de cuenta',
+            'Error actualizando cuenta'
+          );
+          break;
+        case 'plataforma':
+          this.toastr.error(
+            'Debes ingresar la plataforma de la cuenta',
+            'Error actualizando cuenta'
+          );
+          break;
+        case 'descripcion':
+          this.toastr.error(
+            'Ingresa una descripción',
+            'Error actualizando cuenta'
+          );
+          break;
+        case 'plataforma':
+          this.toastr.error(
+            'Debes ingresar el precio',
+            'Error actualizando cuenta'
+          );
+          break;
+        case 'imagen':
+          this.toastr.error(
+            'Debes ingresar una imagen de la cuenta',
+            'Error actualizando cuenta'
+          );
+          break;  
+      }
+    });
+
   }
 }

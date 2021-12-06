@@ -52,5 +52,4 @@ export class SellerAccountsComponent implements OnInit {
   cancelar(id:any){
     this.accounts.verificarAccount(id);
   }
-
 }

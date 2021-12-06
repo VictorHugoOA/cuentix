@@ -46,11 +46,10 @@ export class SellerAccountsComponent implements OnInit {
   }
 
   verificar(id:any){
-
+    this.accounts.verificarAccount(id);
   }
 
   cancelar(id:any){
-
+    this.accounts.cancelarAccount(id);
   }
-
 }

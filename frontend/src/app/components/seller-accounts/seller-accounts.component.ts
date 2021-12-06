@@ -45,4 +45,11 @@ export class SellerAccountsComponent implements OnInit {
     this.router.navigate([`site/edit-account/${idcuenta}`]);
   }
 
+  verificar(id:any){
+    this.accounts.cancelAccount(id);
+  }
+
+  cancelar(id:any){
+    this.accounts.verificarAccount(id);
+  }
 }

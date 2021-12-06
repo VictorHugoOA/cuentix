@@ -17,3 +17,23 @@
 .fa-trash-alt:hover {
     cursor: pointer;
 }
+
+.fa-check-double{
+    color: chartreuse;
+}
+
+.fa-ban{
+    color: firebrick;
+}
+
+.fa-check-double:hover {
+    cursor: pointer;
+}
+
+.fa-ban:hover {
+    cursor: pointer;
+}
+
+.pointer:hover{
+    cursor: pointer;
+}

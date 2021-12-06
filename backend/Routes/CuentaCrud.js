@@ -198,7 +198,7 @@ router.get("/Buscar", async(req, res) => {
 router.put("/CancelarCuenta/:id", (req, res) => {
     const id = req.params.id;
     const idCuenta = mongoose.Types.ObjectId(id);
-    compra.findByIdAndUpdate({ Id_cuenta: idCuenta}, {
+    compra.findOneAndUpdate({ Id_cuenta: id}, {
         $set: {
             Estado: "Cancelada"
         }
@@ -209,19 +209,24 @@ router.put("/CancelarCuenta/:id", (req, res) => {
             }
         }).then((doc) => {
             res.json({res: "Cuenta cancelada"});
+        }).catch((err) => {
+            res.status(400).json({error: err});
         })
+    }).catch((err) => {
+        res.status(400).json({error: err});
     });
 });
 
 router.put("/VerificarCuenta/:id", (req, res) => {
     const id = req.params.id;
-    const idCuenta = mongoose.Types.ObjectId(id);
-    compra.findByIdAndUpdate({ Id_cuenta: idCuenta}, {
+    compra.findOneAndUpdate({ Id_cuenta: id}, {
         $set: {
             Estado: "Verificada"
         }
     }).then((doc) => {
             res.json({res: "Cuenta verificada"});
+    }).catch((error) => {
+        res.status(400).json({error: error});
     });
 });
 

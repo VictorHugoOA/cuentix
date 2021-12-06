@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Cuenta } from 'src/app/models/Cuenta/cuenta';
@@ -10,7 +11,7 @@ import { Cuenta } from 'src/app/models/Cuenta/cuenta';
 })
 export class CuentasService {
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {
   }
   
   public getCatalogo(titulo: String, categoria: String, plataforma: String, pagina: Number): Observable<any[]>{
@@ -71,6 +72,30 @@ export class CuentasService {
           }
         );
     });
+  }
+
+  public cancelAccount(id: String): Promise<any>{
+    return new Promise((resolve, reject) =>{
+      this.http.put(`http://localhost:3000/Cuenta/CancelarCuenta/${id}`, {}).subscribe((response) => {
+        resolve(response);
+        this.router.navigate(['site/home']);
+      }, (error) => {
+        this.toastr.error("Ocurrio un error inesperado", "Error cancelando la cuenta");
+        console.log(error);
+      })
+    })
+  }
+
+  public verificarAccount(id: String): Promise<any>{
+    return new Promise((resolve, reject) =>{
+      this.http.put(`http://localhost:3000/Cuenta/VerificarCuenta/${id}`, {}).subscribe((response) => {
+        resolve(response);
+        this.router.navigate(['site/home']);
+      }, (error) => {
+        this.toastr.error("Ocurrio un error inesperado", "Error verificando la cuenta");
+        console.log(error);
+      })
+    })
   }
 
 }

@@ -195,7 +195,37 @@ router.get("/Buscar", async(req, res) => {
     }
 });
 
-//Modificar libro
+router.put("/CancelarCuenta/:id", (req, res) => {
+    const id = req.params.id;
+    const idCuenta = mongoose.Types.ObjectId(id);
+    compra.findByIdAndUpdate({ Id_cuenta: idCuenta}, {
+        $set: {
+            Estado: "Cancelada"
+        }
+    }).then((doc) => {
+        cuenta.findByIdAndUpdate({ _id: idCuenta}, {
+            $set: {
+                Estado: "Disponible"
+            }
+        }).then((doc) => {
+            res.json({res: "Cuenta cancelada"});
+        })
+    });
+});
+
+router.put("/VerificarCuenta/:id", (req, res) => {
+    const id = req.params.id;
+    const idCuenta = mongoose.Types.ObjectId(id);
+    compra.findByIdAndUpdate({ Id_cuenta: idCuenta}, {
+        $set: {
+            Estado: "Verificada"
+        }
+    }).then((doc) => {
+            res.json({res: "Cuenta verificada"});
+    });
+});
+
+//Modificar cuenta
 router.put("/Modificar/:id", (req, res) => {
 
     const id = req.params.id;
@@ -227,9 +257,12 @@ router.put("/Modificar/:id", (req, res) => {
         });
 });
 
-//Eliminar libro
+//Eliminar cuenta
 router.get("/Eliminar/:id", (req, res) => {
     const id = req.params.id;
+    compra.findByIdAndDelete({ Id_cuenta: mongoose.Types.ObjectId(id)}).then((doc) => {
+        console.log("Compra eliminada");
+    });
     cuenta.findByIdAndDelete({ _id: id })
         .then((doc) => {
             res.json({ response: "Cuenta eliminada" });

@@ -73,4 +73,39 @@ export class CuentasService {
     });
   }
 
+  public verificarAccount(id: String): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.put(`http://localhost:3000/Cuenta/VerficarCuenta/${id}`, {
+          
+        })
+        .subscribe(
+          (response) => {
+            resolve(response);
+            this.router.navigate([`site/home/`]);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    });
+  }
+
+  public cancelarAccount(id: String): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.put(`http://localhost:3000/Cuenta/CancelarCuenta/${id}`, {
+          
+        })
+        .subscribe(
+          (response) => {
+            resolve(response);
+            this.router.navigate([`site/home/`]);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    });
+  }
+
 }
+

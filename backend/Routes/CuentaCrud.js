@@ -214,8 +214,8 @@ router.put("/Modificar/:id", (req, res) => {
                 Tipo: tipo,
                 Plataforma: plataforma,
                 Estado: estado,
-                Descripcion: desc
-                    //Imagen: imag
+                Descripcion: desc,
+                Imagen: imag
             }
         })
         .then((doc) => {

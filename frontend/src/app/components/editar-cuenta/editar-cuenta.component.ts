@@ -17,9 +17,10 @@ import { Cuenta } from 'src/app/models/Cuenta/cuenta';
 export class EditarCuentaComponent implements OnInit {
   public cuentaForm: FormGroup;
   public imageUrl: String | ArrayBuffer | null = "https://bulma.io/images/placeholders/480x480.png";
-  public file: File | null | undefined;
+  public file: File | null;
   public id: String;
   public cuentas: Observable<any>;
+  public imageChanged: boolean = false;
 
   title = "Editar cuenta";
 
@@ -37,6 +38,8 @@ export class EditarCuentaComponent implements OnInit {
     this.cuentas = this.Cuentas.getCuenta(this.id);
     console.log(this.cuentas);
     
+    this.file = null;
+
     const numRegex = /^[1-9]\d*(\.\d+)?$/
     
     this.cuentaForm = this.fb.group({
@@ -49,14 +52,16 @@ export class EditarCuentaComponent implements OnInit {
     });
 
     this.cuentas.subscribe((val) =>{
+      this.imageUrl = `http://localhost:3000/Cuenta/Imagen/${val.Imagen}`;
+      console.log(this.imageUrl);
       this.cuentaForm.patchValue({
-          titulo: val.titulo,
-          vendedor: val.vendedor,
-          tipo: val.tipo,
-          plataforma: val.plataforma,
-          descripcion: val.descripcion,
-          precio: val.precio
-          //imagen: val.imagen
+          titulo: val.Titulo,
+          vendedor: val.Id_vendedor,
+          tipo: val.Tipo,
+          plataforma: val.Plataforma,
+          descripcion: val.Descripcion,
+          precio: val.Precio,
+          imagen: val.Imagen
       });
     });
   }
@@ -71,6 +76,7 @@ export class EditarCuentaComponent implements OnInit {
       reader.readAsDataURL(this.file);
       reader.onload = event => {
         this.imageUrl = reader.result;
+        this.imageChanged = true;
       }
     }
   }
@@ -94,7 +100,6 @@ export class EditarCuentaComponent implements OnInit {
   }
 
   editCuenta(){
-    console.log("entre a la funcion");
     if(this.cuentaForm.valid){
       console.log("entre al if");
       const cuentaModel = new Cuenta(
@@ -104,11 +109,16 @@ export class EditarCuentaComponent implements OnInit {
         this.cuentaForm.get('plataforma')?.value,
         this.cuentaForm.get('descripcion')?.value,
         this.cuentaForm.get('precio')?.value,
-        this.cuentaForm.get('img')?.value,
+        this.cuentaForm.get('imagen')?.value,
       );
-      console.log("termine cuentaModel");
-      this.Cuentas.editAccount(this.id, cuentaModel);
-      console.log("regrese de actualizar");
+      if(this.imageChanged){
+        this.Cuentas.uploadFoto(this.file).subscribe((val) => {
+          cuentaModel.imagen = val.filename;
+          this.Cuentas.editAccount(this.id, cuentaModel);
+        });
+      }else{
+        this.Cuentas.editAccount(this.id, cuentaModel);
+      }
     }
     const invalid: String[] = this.findInvalidControls();
     invalid.forEach((value) => {

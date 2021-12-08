@@ -34,6 +34,14 @@
                                     <!-- [routerLink]="['edit-account/', account._id] -->
                                     <i class="fas fa-trash-alt fa-2x" (click)="eliminarCuenta(account._id)"></i>
                                 </div>
+                                <div (click)="verificar(account._id)" class="pointer">
+                                    <i class="fas fa-check-double fa-2x"></i>
+                                    <label class="pointer">  Verificar Cuenta</label>
+                                </div>
+                                <div (click)="cancelar(account._id)" class="pointer">
+                                    <i class="fas fa-ban fa-2x"></i>
+                                    <label>  Cancelar Cuenta</label>
+                                </div>
                             </div>
                             <img src='http://localhost:3000/Cuenta/Imagen/{{account.Imagen}}' alt="" class="ml-lg-5 order-1 order-lg-2">
                         </div>
